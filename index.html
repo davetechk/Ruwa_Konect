@@ -1,0 +1,2223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>RuwaKonect – Premium Water Delivery for FUTMINNA Students</title>
+<meta name="description" content="Order fresh water gallons to your lodge around FUTMINNA. Fast. Reliable. Trackable." />
+<style>
+/* ============================================================
+   CSS CUSTOM PROPERTIES
+   ============================================================ */
+:root {
+  --aqua:       #00d4ff;
+  --aqua-dim:   #00b8e6;
+  --cyan:       #06f7f7;
+  --blue:       #0066ff;
+  --blue-deep:  #003ebe;
+  --indigo:     #3730ff;
+  --navy:       #050d2d;
+  --navy-mid:   #071042;
+  --navy-light: #0b1a60;
+  --glass-bg:   rgba(255,255,255,0.04);
+  --glass-border: rgba(255,255,255,0.1);
+  --glass-hi:   rgba(255,255,255,0.08);
+  --accent:     #00ffb2;
+  --accent-dim: #00cc8e;
+  --warn:       #ffb700;
+  --text-1:     #f0f6ff;
+  --text-2:     #99b4d4;
+  --text-3:     #4e6a8a;
+  --surface:    #08122e;
+  --surface-2:  #0b1840;
+  --shadow-glow: 0 0 60px rgba(0,212,255,0.15);
+  --shadow-card: 0 24px 60px rgba(0,0,0,0.5);
+  --radius-lg:  20px;
+  --radius-xl:  28px;
+  --radius-sm:  10px;
+  --font-display: 'Syne', system-ui, sans-serif;
+  --font-body:    'DM Sans', system-ui, sans-serif;
+  --font-mono:    'DM Mono', monospace;
+  --nav-h: 72px;
+  --section-pad: clamp(80px, 12vw, 140px);
+  --max-w: 1200px;
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ============================================================
+   GOOGLE FONTS IMPORT
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Mono:wght@400;500&display=swap');
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: var(--font-body);
+  background: var(--navy);
+  color: var(--text-1);
+  overflow-x: hidden;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+button { cursor: pointer; font-family: inherit; border: none; background: none; }
+input, select, textarea { font-family: inherit; }
+ul { list-style: none; }
+
+/* ============================================================
+   UTILITY
+   ============================================================ */
+.container {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 clamp(16px, 4vw, 40px);
+}
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+}
+.reveal.in-view { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ============================================================
+   BACKGROUND CANVAS / ORBS
+   ============================================================ */
+.bg-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.35;
+  animation: orbFloat 18s ease-in-out infinite;
+}
+.orb-1 {
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, #003ebe 0%, transparent 70%);
+  top: -200px; left: -100px;
+  animation-duration: 22s;
+}
+.orb-2 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, #00d4ff 0%, transparent 70%);
+  top: 20%; right: -150px;
+  animation-duration: 18s;
+  animation-delay: -6s;
+}
+.orb-3 {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, #00ffb2 0%, transparent 70%);
+  bottom: 10%; left: 20%;
+  animation-duration: 24s;
+  animation-delay: -12s;
+  opacity: 0.18;
+}
+.orb-4 {
+  width: 350px; height: 350px;
+  background: radial-gradient(circle, #3730ff 0%, transparent 70%);
+  bottom: 30%; right: 10%;
+  animation-duration: 20s;
+  animation-delay: -3s;
+  opacity: 0.25;
+}
+@keyframes orbFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(30px, -40px) scale(1.05); }
+  66%       { transform: translate(-20px, 20px) scale(0.95); }
+}
+
+/* noise grain overlay */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.025;
+}
+
+/* ============================================================
+   NAVBAR
+   ============================================================ */
+.navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  transition: background 0.4s, backdrop-filter 0.4s, box-shadow 0.4s, border-color 0.4s;
+  border-bottom: 1px solid transparent;
+}
+.navbar.scrolled {
+  background: rgba(5, 13, 45, 0.85);
+  backdrop-filter: blur(24px) saturate(1.4);
+  -webkit-backdrop-filter: blur(24px) saturate(1.4);
+  border-color: var(--glass-border);
+  box-shadow: 0 4px 40px rgba(0,0,0,0.4);
+}
+.navbar .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.35rem;
+  letter-spacing: -0.03em;
+}
+.nav-logo-icon {
+  width: 36px; height: 36px;
+  background: linear-gradient(135deg, var(--aqua), var(--blue));
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 16px rgba(0,212,255,0.5);
+  flex-shrink: 0;
+}
+.nav-logo-icon svg { width: 20px; height: 20px; }
+.nav-logo-text { color: var(--text-1); }
+.nav-logo-text span { color: var(--aqua); }
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.nav-links a {
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-2);
+  transition: color 0.2s, background 0.2s;
+}
+.nav-links a:hover { color: var(--text-1); background: var(--glass-bg); }
+.nav-cta {
+  padding: 10px 22px;
+  border-radius: 50px;
+  background: linear-gradient(135deg, var(--aqua), var(--blue));
+  color: var(--navy);
+  font-weight: 700;
+  font-size: 0.875rem;
+  letter-spacing: 0.01em;
+  transition: transform 0.2s var(--ease-bounce), box-shadow 0.2s;
+  box-shadow: 0 0 20px rgba(0,212,255,0.3);
+}
+.nav-cta:hover { transform: translateY(-2px); box-shadow: 0 0 32px rgba(0,212,255,0.5); }
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: 8px;
+  border-radius: 8px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+}
+.nav-hamburger span {
+  display: block;
+  width: 22px; height: 2px;
+  background: var(--text-1);
+  border-radius: 2px;
+  transition: transform 0.3s, opacity 0.3s;
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.nav-mobile {
+  display: none;
+  position: fixed;
+  top: var(--nav-h);
+  left: 0; right: 0;
+  background: rgba(5,13,45,0.97);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--glass-border);
+  padding: 20px 24px 28px;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 99;
+  transform: translateY(-10px);
+  opacity: 0;
+  transition: transform 0.3s var(--ease-out), opacity 0.3s;
+}
+.nav-mobile.open { display: flex; transform: translateY(0); opacity: 1; }
+.nav-mobile a {
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-2);
+  transition: color 0.2s, background 0.2s;
+}
+.nav-mobile a:hover { color: var(--text-1); background: var(--glass-hi); }
+.nav-mobile .nav-cta {
+  margin-top: 12px;
+  text-align: center;
+  display: block;
+  padding: 14px;
+  border-radius: 12px;
+  color: var(--navy);
+}
+
+/* ============================================================
+   HERO SECTION
+   ============================================================ */
+.hero {
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-top: var(--nav-h);
+  padding-bottom: 60px;
+  overflow: hidden;
+}
+.hero .container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px 6px 8px;
+  background: rgba(0,212,255,0.08);
+  border: 1px solid rgba(0,212,255,0.2);
+  border-radius: 50px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--aqua);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+  animation: fadein 0.8s var(--ease-out) both;
+}
+.hero-badge-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--aqua);
+  box-shadow: 0 0 8px var(--aqua);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%,100% { box-shadow: 0 0 8px var(--aqua); }
+  50%      { box-shadow: 0 0 20px var(--aqua); }
+}
+@keyframes fadein { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+
+.hero-headline {
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 5.5vw, 4.2rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+  margin-bottom: 24px;
+  animation: fadein 0.8s 0.1s var(--ease-out) both;
+}
+.hero-headline .line-color {
+  background: linear-gradient(90deg, var(--aqua), var(--cyan), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-sub {
+  font-size: clamp(1rem, 1.8vw, 1.15rem);
+  color: var(--text-2);
+  max-width: 500px;
+  margin-bottom: 40px;
+  font-weight: 400;
+  line-height: 1.7;
+  animation: fadein 0.8s 0.2s var(--ease-out) both;
+}
+.hero-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 48px;
+  animation: fadein 0.8s 0.3s var(--ease-out) both;
+}
+.btn-primary {
+  padding: 14px 30px;
+  border-radius: 50px;
+  background: linear-gradient(135deg, var(--aqua) 0%, var(--blue) 100%);
+  color: var(--navy);
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+  transition: transform 0.25s var(--ease-bounce), box-shadow 0.25s;
+  box-shadow: 0 0 24px rgba(0,212,255,0.35), 0 8px 30px rgba(0,102,255,0.3);
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 0 40px rgba(0,212,255,0.5), 0 16px 40px rgba(0,102,255,0.4); }
+.btn-secondary {
+  padding: 14px 30px;
+  border-radius: 50px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  color: var(--text-1);
+  font-weight: 600;
+  font-size: 0.95rem;
+  backdrop-filter: blur(8px);
+  transition: border-color 0.2s, background 0.2s, transform 0.2s var(--ease-bounce);
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.btn-secondary:hover { border-color: var(--aqua); background: rgba(0,212,255,0.06); transform: translateY(-2px); }
+.hero-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  animation: fadein 0.8s 0.4s var(--ease-out) both;
+}
+.stat-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 50px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-2);
+  backdrop-filter: blur(6px);
+}
+.stat-chip-icon { font-size: 1rem; }
+
+/* hero visual */
+.hero-visual {
+  position: relative;
+  animation: fadein 0.8s 0.2s var(--ease-out) both;
+}
+.hero-card-main {
+  background: linear-gradient(135deg, rgba(11,24,96,0.9) 0%, rgba(7,16,66,0.95) 100%);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  padding: 28px;
+  backdrop-filter: blur(20px);
+  box-shadow: var(--shadow-card), inset 0 1px 0 rgba(255,255,255,0.06), 0 0 60px rgba(0,102,255,0.15);
+  animation: heroCardFloat 5s ease-in-out infinite;
+  position: relative;
+  z-index: 2;
+}
+@keyframes heroCardFloat {
+  0%,100% { transform: translateY(0) rotate(-1deg); }
+  50%      { transform: translateY(-12px) rotate(-1deg); }
+}
+.hero-card-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--aqua);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.hero-card-value {
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: var(--text-1);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+.hero-card-value span { color: var(--aqua); }
+.hero-card-sub { font-size: 0.82rem; color: var(--text-3); margin-top: 6px; }
+.hero-card-divider { height: 1px; background: var(--glass-border); margin: 20px 0; }
+.hero-card-rows { display: flex; flex-direction: column; gap: 12px; }
+.hero-card-row { display: flex; align-items: center; justify-content: space-between; }
+.hero-card-row-label { font-size: 0.83rem; color: var(--text-3); }
+.hero-card-row-val { font-size: 0.83rem; font-weight: 600; color: var(--text-2); }
+.hero-card-row-val.green { color: var(--accent); }
+.hero-card-row-val.warn { color: var(--warn); }
+.hero-card-progress-bar {
+  height: 6px; border-radius: 3px; background: rgba(255,255,255,0.07);
+  overflow: hidden; margin-top: 4px;
+}
+.hero-card-progress-fill {
+  height: 100%; border-radius: 3px;
+  background: linear-gradient(90deg, var(--blue), var(--aqua));
+  width: 62%;
+  animation: progressPulse 3s ease-in-out infinite;
+}
+@keyframes progressPulse {
+  0%,100% { opacity: 1; } 50% { opacity: 0.7; }
+}
+.hero-card-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 10px; border-radius: 50px;
+  background: rgba(0,255,178,0.1); border: 1px solid rgba(0,255,178,0.2);
+  font-size: 0.75rem; font-weight: 600; color: var(--accent);
+  margin-top: 16px;
+}
+.hero-float-card {
+  position: absolute;
+  background: linear-gradient(135deg, rgba(7,16,66,0.92), rgba(11,24,96,0.9));
+  border: 1px solid var(--glass-border);
+  border-radius: 14px;
+  padding: 14px 18px;
+  backdrop-filter: blur(16px);
+  box-shadow: var(--shadow-card);
+  animation: heroCardFloat 5s ease-in-out infinite;
+}
+.hero-float-1 { top: -30px; right: -20px; animation-delay: -2s; min-width: 160px; }
+.hero-float-2 { bottom: -30px; left: -20px; animation-delay: -1s; min-width: 160px; }
+.float-card-label { font-size: 0.7rem; color: var(--text-3); margin-bottom: 4px; }
+.float-card-val { font-size: 1.2rem; font-weight: 700; font-family: var(--font-display); }
+.float-card-val.aqua { color: var(--aqua); }
+.float-card-val.accent { color: var(--accent); }
+
+/* ============================================================
+   VALUE STRIP
+   ============================================================ */
+.value-strip {
+  position: relative; z-index: 2;
+  padding: 60px 0;
+  border-top: 1px solid var(--glass-border);
+  border-bottom: 1px solid var(--glass-border);
+}
+.value-strip .container { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.value-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  transition: border-color 0.3s, transform 0.3s var(--ease-bounce), box-shadow 0.3s;
+  backdrop-filter: blur(8px);
+}
+.value-card:hover { border-color: rgba(0,212,255,0.3); transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 30px rgba(0,212,255,0.06); }
+.value-icon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(0,212,255,0.12), rgba(0,102,255,0.08));
+  border: 1px solid rgba(0,212,255,0.15);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 16px;
+}
+.value-icon svg { width: 22px; height: 22px; }
+.value-card h3 { font-family: var(--font-display); font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
+.value-card p { font-size: 0.85rem; color: var(--text-2); line-height: 1.6; }
+
+/* ============================================================
+   HOW IT WORKS
+   ============================================================ */
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--aqua);
+  margin-bottom: 14px;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  margin-bottom: 16px;
+  line-height: 1.1;
+}
+.section-sub {
+  font-size: 1.05rem;
+  color: var(--text-2);
+  max-width: 520px;
+  line-height: 1.7;
+}
+.section-header { margin-bottom: 60px; }
+.how-section {
+  position: relative; z-index: 2;
+  padding: var(--section-pad) 0;
+}
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  position: relative;
+}
+.steps-connector {
+  position: absolute;
+  top: 36px;
+  left: calc(12.5% + 24px);
+  right: calc(12.5% + 24px);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--glass-border), var(--aqua), var(--glass-border), transparent);
+  z-index: 0;
+}
+.step-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 28px 24px;
+  position: relative;
+  z-index: 1;
+  transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s var(--ease-bounce);
+}
+.step-card:hover { border-color: rgba(0,212,255,0.25); box-shadow: 0 20px 50px rgba(0,0,0,0.3); transform: translateY(-4px); }
+.step-num {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--aqua), var(--blue));
+  color: var(--navy);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.1rem;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 20px;
+  box-shadow: 0 0 20px rgba(0,212,255,0.3);
+}
+.step-card h3 { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; margin-bottom: 10px; }
+.step-card p { font-size: 0.85rem; color: var(--text-2); line-height: 1.6; }
+.step-icon { margin-bottom: 16px; opacity: 0.6; }
+
+/* ============================================================
+   AREAS SECTION
+   ============================================================ */
+.areas-section { position: relative; z-index: 2; padding: var(--section-pad) 0; }
+.areas-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.area-card {
+  background: linear-gradient(135deg, var(--glass-bg), rgba(0,102,255,0.04));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 28px 24px;
+  transition: all 0.3s var(--ease-bounce);
+  position: relative;
+  overflow: hidden;
+}
+.area-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--blue), var(--aqua));
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.area-card:hover::before { opacity: 1; }
+.area-card:hover { border-color: rgba(0,212,255,0.2); transform: translateY(-5px); box-shadow: 0 24px 50px rgba(0,0,0,0.35), 0 0 30px rgba(0,212,255,0.05); }
+.area-icon {
+  width: 50px; height: 50px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(0,102,255,0.15), rgba(0,212,255,0.1));
+  border: 1px solid rgba(0,212,255,0.12);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem;
+  margin-bottom: 18px;
+}
+.area-card h3 { font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; margin-bottom: 8px; }
+.area-card p { font-size: 0.82rem; color: var(--text-2); line-height: 1.55; }
+.area-status {
+  display: inline-flex; align-items: center; gap: 5px;
+  margin-top: 14px;
+  font-size: 0.75rem; font-weight: 600;
+  color: var(--accent);
+}
+.area-status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 6px var(--accent); }
+.areas-note {
+  margin-top: 32px;
+  padding: 16px 22px;
+  background: rgba(0,212,255,0.04);
+  border: 1px dashed rgba(0,212,255,0.15);
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  color: var(--text-3);
+  text-align: center;
+}
+
+/* ============================================================
+   ORDER SECTION
+   ============================================================ */
+.order-section { position: relative; z-index: 2; padding: var(--section-pad) 0; }
+.order-layout {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 36px;
+  align-items: start;
+}
+.order-form-card {
+  background: linear-gradient(145deg, rgba(11,24,96,0.7) 0%, rgba(5,13,45,0.9) 100%);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  padding: 40px;
+  backdrop-filter: blur(24px);
+  box-shadow: var(--shadow-card), inset 0 1px 0 rgba(255,255,255,0.05);
+  position: relative;
+  overflow: hidden;
+}
+.order-form-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--blue), var(--aqua), var(--accent));
+}
+.order-form-title {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: 6px;
+}
+.order-form-sub { font-size: 0.88rem; color: var(--text-2); margin-bottom: 32px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.form-group.full { grid-column: 1 / -1; }
+.form-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-2);
+  letter-spacing: 0.02em;
+}
+.form-input, .form-select {
+  width: 100%;
+  padding: 13px 16px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  color: var(--text-1);
+  font-size: 0.92rem;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+  -webkit-appearance: none;
+}
+.form-input::placeholder { color: var(--text-3); }
+.form-input:focus, .form-select:focus {
+  border-color: var(--aqua);
+  background: rgba(0,212,255,0.04);
+  box-shadow: 0 0 0 3px rgba(0,212,255,0.1);
+}
+.form-input.error { border-color: #ff4d6d; box-shadow: 0 0 0 3px rgba(255,77,109,0.1); }
+.form-error-msg { font-size: 0.75rem; color: #ff4d6d; display: none; }
+.form-error-msg.visible { display: block; }
+.form-select { background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 6L8 10L12 6' stroke='%234e6a8a' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 40px; cursor: pointer; }
+.form-select option { background: var(--navy-mid); color: var(--text-1); }
+
+/* quantity stepper */
+.qty-stepper {
+  display: flex; align-items: center; gap: 0;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  height: 46px;
+}
+.qty-btn {
+  width: 46px; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--aqua);
+  font-size: 1.3rem;
+  font-weight: 300;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+.qty-btn:hover { background: rgba(0,212,255,0.08); }
+.qty-val {
+  flex: 1;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-1);
+  border-left: 1px solid var(--glass-border);
+  border-right: 1px solid var(--glass-border);
+  height: 100%;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* confirmation checkbox */
+.confirm-row {
+  display: flex; align-items: flex-start; gap: 12px;
+  margin-top: 24px; margin-bottom: 20px;
+}
+.confirm-check {
+  width: 20px; height: 20px;
+  border: 1.5px solid var(--glass-border);
+  border-radius: 5px;
+  background: rgba(255,255,255,0.04);
+  cursor: pointer;
+  flex-shrink: 0;
+  margin-top: 1px;
+  transition: border-color 0.2s, background 0.2s;
+  appearance: none;
+  -webkit-appearance: none;
+  position: relative;
+}
+.confirm-check:checked {
+  background: linear-gradient(135deg, var(--aqua), var(--blue));
+  border-color: var(--aqua);
+}
+.confirm-check:checked::after {
+  content: '';
+  position: absolute;
+  top: 3px; left: 7px;
+  width: 5px; height: 9px;
+  border: 2px solid var(--navy);
+  border-top: none; border-left: none;
+  transform: rotate(45deg);
+}
+.confirm-label { font-size: 0.85rem; color: var(--text-2); line-height: 1.5; }
+.btn-pay {
+  width: 100%;
+  padding: 16px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--aqua) 0%, var(--blue) 60%, var(--indigo) 100%);
+  color: var(--navy);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.05rem;
+  letter-spacing: 0.01em;
+  transition: transform 0.25s var(--ease-bounce), box-shadow 0.25s, opacity 0.2s;
+  box-shadow: 0 0 30px rgba(0,212,255,0.3), 0 10px 30px rgba(0,102,255,0.3);
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  position: relative;
+  overflow: hidden;
+}
+.btn-pay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 50%, transparent 100%);
+  transform: translateX(-100%);
+  transition: transform 0.5s;
+}
+.btn-pay:hover::before { transform: translateX(100%); }
+.btn-pay:hover { transform: translateY(-3px); box-shadow: 0 0 50px rgba(0,212,255,0.45), 0 16px 40px rgba(0,102,255,0.4); }
+.btn-pay:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+.btn-pay-helper { font-size: 0.78rem; color: var(--text-3); text-align: center; margin-top: 12px; }
+.btn-pay-loading { display: none; }
+.btn-pay.loading .btn-pay-text { display: none; }
+.btn-pay.loading .btn-pay-loading { display: flex; align-items: center; gap: 8px; }
+.spinner {
+  width: 18px; height: 18px;
+  border: 2px solid rgba(5,13,45,0.3);
+  border-top-color: var(--navy);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* order summary sidebar */
+.order-sidebar { display: flex; flex-direction: column; gap: 20px; }
+.summary-card {
+  background: linear-gradient(145deg, rgba(7,16,66,0.8), rgba(5,13,45,0.9));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.3);
+}
+.summary-card-title {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  display: flex; align-items: center; gap: 8px;
+}
+.summary-card-title-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--aqua); box-shadow: 0 0 8px var(--aqua);
+}
+.summary-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--glass-border);
+  font-size: 0.88rem;
+}
+.summary-row:last-child { border-bottom: none; }
+.summary-row-label { color: var(--text-2); }
+.summary-row-val { font-weight: 600; color: var(--text-1); }
+.summary-total {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 16px;
+  margin-top: 4px;
+}
+.summary-total-label { font-size: 0.9rem; color: var(--text-2); font-weight: 600; }
+.summary-total-val {
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: var(--aqua);
+  letter-spacing: -0.03em;
+}
+
+/* queue card */
+.queue-card {
+  background: linear-gradient(145deg, rgba(7,16,66,0.8), rgba(5,13,45,0.9));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.3);
+}
+.queue-card-title {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--text-1);
+}
+.queue-card-area {
+  font-size: 0.82rem;
+  color: var(--text-3);
+  margin-bottom: 22px;
+  font-family: var(--font-mono);
+}
+.queue-metric {
+  background: rgba(0,212,255,0.04);
+  border: 1px solid rgba(0,212,255,0.1);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  margin-bottom: 12px;
+}
+.queue-metric-label { font-size: 0.75rem; color: var(--text-3); margin-bottom: 6px; letter-spacing: 0.05em; text-transform: uppercase; }
+.queue-metric-val { font-family: var(--font-display); font-size: 1.5rem; font-weight: 800; color: var(--text-1); line-height: 1; }
+.queue-metric-val .unit { font-size: 0.85rem; font-weight: 500; color: var(--text-3); margin-left: 4px; }
+.queue-bar-wrap { margin-top: 8px; }
+.queue-bar-label { display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--text-3); margin-bottom: 6px; }
+.queue-bar { height: 8px; border-radius: 4px; background: rgba(255,255,255,0.07); overflow: hidden; }
+.queue-bar-fill {
+  height: 100%; border-radius: 4px;
+  background: linear-gradient(90deg, var(--blue), var(--aqua));
+  transition: width 0.5s var(--ease-out);
+}
+.eta-card {
+  background: linear-gradient(135deg, rgba(0,255,178,0.06), rgba(0,212,255,0.04));
+  border: 1px solid rgba(0,255,178,0.12);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  margin-top: 12px;
+}
+.eta-label { font-size: 0.72rem; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+.eta-val {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+.queue-status-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 12px;
+  border-radius: 50px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  margin-top: 14px;
+}
+.queue-status-badge.active { background: rgba(0,255,178,0.1); border: 1px solid rgba(0,255,178,0.2); color: var(--accent); }
+.queue-status-badge.busy { background: rgba(255,183,0,0.1); border: 1px solid rgba(255,183,0,0.2); color: var(--warn); }
+.status-dot { width: 6px; height: 6px; border-radius: 50%; }
+.status-dot.green { background: var(--accent); box-shadow: 0 0 6px var(--accent); }
+.status-dot.warn { background: var(--warn); box-shadow: 0 0 6px var(--warn); }
+
+/* ============================================================
+   FAQ SECTION
+   ============================================================ */
+.faq-section { position: relative; z-index: 2; padding: var(--section-pad) 0; }
+.faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.faq-item {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.faq-item:hover { border-color: rgba(0,212,255,0.15); box-shadow: 0 8px 30px rgba(0,0,0,0.2); }
+.faq-item.open { border-color: rgba(0,212,255,0.2); }
+.faq-q {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 20px 24px;
+  cursor: pointer;
+  gap: 16px;
+}
+.faq-q-text { font-weight: 600; font-size: 0.95rem; color: var(--text-1); }
+.faq-icon {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--glass-bg); border: 1px solid var(--glass-border);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.35s var(--ease-out), background 0.2s, border-color 0.2s;
+  color: var(--aqua);
+  font-size: 1rem;
+}
+.faq-item.open .faq-icon { transform: rotate(45deg); background: rgba(0,212,255,0.1); border-color: rgba(0,212,255,0.2); }
+.faq-a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s var(--ease-out), padding 0.3s;
+  padding: 0 24px;
+}
+.faq-a-inner { padding-bottom: 20px; font-size: 0.88rem; color: var(--text-2); line-height: 1.7; }
+.faq-item.open .faq-a { max-height: 200px; }
+
+/* ============================================================
+   FINAL CTA STRIP
+   ============================================================ */
+.cta-strip {
+  position: relative; z-index: 2;
+  padding: 100px 0;
+  overflow: hidden;
+}
+.cta-inner {
+  background: linear-gradient(135deg, rgba(0,102,255,0.12) 0%, rgba(0,212,255,0.08) 100%);
+  border: 1px solid rgba(0,212,255,0.15);
+  border-radius: 32px;
+  padding: 72px 60px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.cta-inner::before {
+  content: '';
+  position: absolute;
+  top: -80px; left: 50%;
+  transform: translateX(-50%);
+  width: 400px; height: 200px;
+  background: radial-gradient(ellipse, rgba(0,212,255,0.12), transparent);
+  pointer-events: none;
+}
+.cta-inner .section-title { margin-bottom: 16px; }
+.cta-inner p { font-size: 1.05rem; color: var(--text-2); margin-bottom: 36px; }
+.cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer {
+  position: relative; z-index: 2;
+  border-top: 1px solid var(--glass-border);
+  padding: 60px 0 40px;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 50px;
+}
+.footer-brand p { font-size: 0.88rem; color: var(--text-3); margin-top: 16px; line-height: 1.7; max-width: 280px; }
+.footer-col h4 {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: var(--text-1);
+  letter-spacing: 0.02em;
+}
+.footer-col a {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--text-3);
+  margin-bottom: 10px;
+  transition: color 0.2s;
+}
+.footer-col a:hover { color: var(--aqua); }
+.footer-bottom {
+  border-top: 1px solid var(--glass-border);
+  padding-top: 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.footer-copy { font-size: 0.8rem; color: var(--text-3); }
+.footer-note { font-size: 0.78rem; color: var(--text-3); opacity: 0.7; }
+
+/* ============================================================
+   SUCCESS MODAL
+   ============================================================ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(5,13,45,0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 200;
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s;
+}
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+.modal {
+  background: linear-gradient(145deg, var(--surface-2), var(--surface));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  padding: 48px 40px;
+  max-width: 440px;
+  width: 100%;
+  text-align: center;
+  transform: scale(0.9) translateY(20px);
+  transition: transform 0.4s var(--ease-bounce);
+  box-shadow: var(--shadow-card), 0 0 80px rgba(0,212,255,0.12);
+  position: relative;
+  overflow: hidden;
+}
+.modal-overlay.open .modal { transform: scale(1) translateY(0); }
+.modal::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--blue), var(--aqua), var(--accent));
+}
+.modal-icon {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,255,178,0.15), rgba(0,212,255,0.06));
+  border: 2px solid rgba(0,255,178,0.25);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2.2rem;
+  margin: 0 auto 24px;
+  animation: iconBounce 0.6s 0.2s var(--ease-bounce) both;
+}
+@keyframes iconBounce { from { transform: scale(0); } to { transform: scale(1); } }
+.modal h2 {
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: 12px;
+}
+.modal p { font-size: 0.9rem; color: var(--text-2); line-height: 1.65; margin-bottom: 8px; }
+.modal-order-id {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 8px 16px;
+  background: rgba(0,212,255,0.07);
+  border: 1px solid rgba(0,212,255,0.15);
+  border-radius: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--aqua);
+  letter-spacing: 0.06em;
+  margin-bottom: 28px;
+}
+.modal-close {
+  padding: 13px 32px;
+  border-radius: 50px;
+  background: linear-gradient(135deg, var(--aqua), var(--blue));
+  color: var(--navy);
+  font-weight: 700;
+  font-size: 0.92rem;
+  transition: transform 0.2s var(--ease-bounce), box-shadow 0.2s;
+  box-shadow: 0 0 20px rgba(0,212,255,0.25);
+}
+.modal-close:hover { transform: translateY(-2px); box-shadow: 0 0 32px rgba(0,212,255,0.4); }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1024px) {
+  .hero .container { grid-template-columns: 1fr; gap: 48px; }
+  .hero-visual { max-width: 480px; }
+  .value-strip .container { grid-template-columns: repeat(2, 1fr); }
+  .steps-grid { grid-template-columns: repeat(2, 1fr); }
+  .steps-connector { display: none; }
+  .areas-grid { grid-template-columns: repeat(2, 1fr); }
+  .order-layout { grid-template-columns: 1fr; }
+  .order-sidebar { grid-row: 2; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 30px; }
+}
+@media (max-width: 768px) {
+  .nav-links, .nav-cta { display: none; }
+  .nav-hamburger { display: flex; }
+  .hero { padding-bottom: 80px; }
+  .hero-headline { font-size: 2.4rem; }
+  .hero-visual {
+    display: block;
+    max-width: 360px;
+    margin: 60px auto 0;
+    padding: 24px 16px 40px;
+  }
+  .hero-float-1 { top: -14px; right: -6px; min-width: 130px; font-size: 0.85rem; padding: 10px 14px; }
+  .hero-float-2 { bottom: 10px; left: -6px; min-width: 130px; font-size: 0.85rem; padding: 10px 14px; }
+  .float-card-val { font-size: 1rem; }
+  .hero-card-main { padding: 22px 18px; }
+  .hero-card-value { font-size: 1.9rem; }
+  .value-strip .container { grid-template-columns: 1fr; }
+  .faq-grid { grid-template-columns: 1fr; }
+  .cta-inner { padding: 48px 24px; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  .order-form-card { padding: 28px 20px; }
+}
+@media (max-width: 480px) {
+  .hero-btns { flex-direction: column; }
+  .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+  .modal { padding: 36px 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Background orbs and grain -->
+<div class="bg-canvas" aria-hidden="true">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="orb orb-4"></div>
+</div>
+<div class="grain" aria-hidden="true"></div>
+
+<!-- ============================================================
+     NAVBAR
+     ============================================================ -->
+<header class="navbar" id="navbar" role="banner">
+  <div class="container">
+    <a href="#" class="nav-logo" aria-label="RuwaKonect Home">
+      <div class="nav-logo-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 14c-2.21 0-4-1.79-4-4 0-1.56.89-2.91 2.19-3.59L12 5l1.81 3.41C15.11 9.09 16 10.44 16 12c0 2.21-1.79 4-4 4z" fill="#00d4ff"/>
+        </svg>
+      </div>
+      <span class="nav-logo-text">Ruwa<span>Konect</span></span>
+    </a>
+
+    <nav class="nav-links" aria-label="Primary navigation">
+      <a href="#hero">Home</a>
+      <a href="#how-it-works">How It Works</a>
+      <a href="#order">Order</a>
+      <a href="#queue-info">Queue Info</a>
+    </nav>
+
+    <a href="#order" class="nav-cta" aria-label="Order water now">Order Water</a>
+
+    <button class="nav-hamburger" id="navHamburger" aria-label="Toggle mobile menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile nav -->
+<nav class="nav-mobile" id="navMobile" aria-label="Mobile navigation">
+  <a href="#hero">Home</a>
+  <a href="#how-it-works">How It Works</a>
+  <a href="#order">Order</a>
+  <a href="#queue-info">Queue Info</a>
+  <a href="#order" class="nav-cta">Order Water Now</a>
+</nav>
+
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="hero" id="hero" aria-labelledby="heroHeadline">
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-badge" aria-label="Live service indicator">
+        <span class="hero-badge-dot" aria-hidden="true"></span>
+        Live · FUTMINNA Off-Campus Delivery
+      </div>
+
+      <h1 class="hero-headline" id="heroHeadline">
+        Fresh Water<br>
+        <span class="line-color">Delivered to</span><br>
+        Your Lodge
+      </h1>
+
+      <p class="hero-sub">
+        Order quality drinking water gallons with real-time queue tracking and seamless payment. Built exclusively for FUTMINNA off-campus students.
+      </p>
+
+      <div class="hero-btns">
+        <a href="#order" class="btn-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Order Now
+        </a>
+        <a href="#how-it-works" class="btn-secondary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/><path d="M10 9.5L14.5 12 10 14.5V9.5z" fill="currentColor"/></svg>
+          See How It Works
+        </a>
+      </div>
+
+      <div class="hero-stats" role="list" aria-label="Service highlights">
+        <div class="stat-chip" role="listitem"><span class="stat-chip-icon" aria-hidden="true">⚡</span> Fast Delivery</div>
+        <div class="stat-chip" role="listitem"><span class="stat-chip-icon" aria-hidden="true">🔒</span> Secure Payment</div>
+        <div class="stat-chip" role="listitem"><span class="stat-chip-icon" aria-hidden="true">📍</span> Area Queue Updates</div>
+        <div class="stat-chip" role="listitem"><span class="stat-chip-icon" aria-hidden="true">💧</span> Premium Quality</div>
+      </div>
+    </div>
+
+    <!-- Hero visual mockup -->
+    <div class="hero-visual" aria-hidden="true">
+      <div class="hero-float-card hero-float-1">
+        <div class="float-card-label">Active Orders</div>
+        <div class="float-card-val aqua">124</div>
+      </div>
+
+      <div class="hero-card-main">
+        <div class="hero-card-label">Current Delivery Status</div>
+        <div class="hero-card-value"><span>18</span> Gallons</div>
+        <div class="hero-card-sub">remaining before Gidan Kwano dispatch</div>
+
+        <div class="hero-card-divider"></div>
+
+        <div class="hero-card-rows">
+          <div class="hero-card-row">
+            <span class="hero-card-row-label">Queue Position</span>
+            <span class="hero-card-row-val">#7 in line</span>
+          </div>
+          <div class="hero-card-row">
+            <span class="hero-card-row-label">ETA</span>
+            <span class="hero-card-row-val green">35–50 mins</span>
+          </div>
+          <div class="hero-card-row">
+            <span class="hero-card-row-label">Price / Gallon</span>
+            <span class="hero-card-row-val">₦700</span>
+          </div>
+          <div class="hero-card-row">
+            <span class="hero-card-row-label">Payment</span>
+            <span class="hero-card-row-val warn">Pending</span>
+          </div>
+        </div>
+
+        <div class="hero-card-progress-bar">
+          <div class="hero-card-progress-fill"></div>
+        </div>
+
+        <div class="hero-card-badge">
+          <span style="width:6px;height:6px;border-radius:50%;background:var(--accent);display:inline-block;box-shadow:0 0 6px var(--accent)"></span>
+          Dispatch queue active
+        </div>
+      </div>
+
+      <div class="hero-float-card hero-float-2">
+        <div class="float-card-label">Delivered Today</div>
+        <div class="float-card-val accent">87 Gallons</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     VALUE STRIP
+     ============================================================ -->
+<section class="value-strip" aria-label="Service highlights">
+  <div class="container">
+    <div class="value-card reveal">
+      <div class="value-icon">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M13 2L4.09 12.97H12L11 22l8.91-10.97H12L13 2z" stroke="#00d4ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h3>Lightning Fast</h3>
+      <p>Get water delivered to your lodge within 30–60 minutes. No waiting, no stress.</p>
+    </div>
+    <div class="value-card reveal reveal-delay-1">
+      <div class="value-icon">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="3" y="6" width="18" height="13" rx="2" stroke="#00d4ff" stroke-width="1.5"/>
+          <path d="M3 10h18" stroke="#00d4ff" stroke-width="1.5"/>
+          <path d="M7 15h4" stroke="#00d4ff" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h3>Secure Payment</h3>
+      <p>Pay seamlessly with Paystack. Your transaction is safe and immediately confirmed.</p>
+    </div>
+    <div class="value-card reveal reveal-delay-2">
+      <div class="value-icon">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="#00d4ff" stroke-width="1.5"/>
+          <circle cx="12" cy="9" r="2.5" stroke="#00d4ff" stroke-width="1.5"/>
+        </svg>
+      </div>
+      <h3>Off-Campus Ready</h3>
+      <p>Designed for students in Gidan Kwano, Bosso, Tunga, Chanchaga and beyond.</p>
+    </div>
+    <div class="value-card reveal reveal-delay-3">
+      <div class="value-icon">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 3h18v4H3zM3 10h18v4H3zM3 17h18v4H3z" stroke="#00d4ff" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h3>Real Queue Tracking</h3>
+      <p>See exactly how many gallons remain before your area's next delivery dispatch.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     HOW IT WORKS
+     ============================================================ -->
+<section class="how-section" id="how-it-works" aria-labelledby="howTitle">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">Process</div>
+      <h2 class="section-title" id="howTitle">Order in four simple steps</h2>
+      <p class="section-sub">From clicking to sipping — the entire process is built to be frictionless for busy students.</p>
+    </div>
+
+    <div class="steps-grid">
+      <div class="steps-connector" aria-hidden="true"></div>
+
+      <div class="step-card reveal">
+        <div class="step-num" aria-hidden="true">1</div>
+        <div class="step-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 14c-2.21 0-4-1.79-4-4 0-1.56.89-2.91 2.19-3.59L12 5l1.81 3.41C15.11 9.09 16 10.44 16 12c0 2.21-1.79 4-4 4z" fill="#00d4ff" opacity="0.6"/></svg>
+        </div>
+        <h3>Choose Quantity</h3>
+        <p>Select how many gallons you need using our simple quantity selector. Add as many as you need.</p>
+      </div>
+
+      <div class="step-card reveal reveal-delay-1">
+        <div class="step-num" aria-hidden="true">2</div>
+        <div class="step-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="#00d4ff" stroke-width="1.5" opacity="0.6"/></svg>
+        </div>
+        <h3>Enter Location</h3>
+        <p>Provide your area, lodge name, room number, and landmark so we can find you precisely.</p>
+      </div>
+
+      <div class="step-card reveal reveal-delay-2">
+        <div class="step-num" aria-hidden="true">3</div>
+        <div class="step-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="13" rx="2" stroke="#00d4ff" stroke-width="1.5" opacity="0.6"/><path d="M3 10h18" stroke="#00d4ff" stroke-width="1.5" opacity="0.6"/></svg>
+        </div>
+        <h3>Make Payment</h3>
+        <p>Pay securely online via Paystack. Your order is confirmed instantly upon successful payment.</p>
+      </div>
+
+      <div class="step-card reveal reveal-delay-3">
+        <div class="step-num" aria-hidden="true">4</div>
+        <div class="step-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5 9-9" stroke="#00ffb2" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/></svg>
+        </div>
+        <h3>Get Delivery</h3>
+        <p>Sit back and track the queue. Your water arrives at your door within the estimated timeframe.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     SUPPORTED AREAS
+     ============================================================ -->
+<section class="areas-section" id="areas" aria-labelledby="areasTitle">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">Coverage</div>
+      <h2 class="section-title" id="areasTitle">Delivery Areas</h2>
+      <p class="section-sub">Currently serving four major off-campus areas around FUTMINNA — with more coming soon.</p>
+    </div>
+
+    <div class="areas-grid">
+      <div class="area-card reveal">
+        <div class="area-icon" aria-hidden="true">🏘️</div>
+        <h3>Gidan Kwano</h3>
+        <p>Primary delivery zone. High-density student lodges served first with fastest dispatch times.</p>
+        <div class="area-status"><span class="area-status-dot" aria-hidden="true"></span> Actively Delivering</div>
+      </div>
+      <div class="area-card reveal reveal-delay-1">
+        <div class="area-icon" aria-hidden="true">🏙️</div>
+        <h3>Bosso</h3>
+        <p>Central Bosso area including student estates. Regular delivery rounds throughout the day.</p>
+        <div class="area-status"><span class="area-status-dot" aria-hidden="true"></span> Actively Delivering</div>
+      </div>
+      <div class="area-card reveal reveal-delay-2">
+        <div class="area-icon" aria-hidden="true">🌆</div>
+        <h3>Tunga</h3>
+        <p>Tunga and surroundings served in dedicated afternoon dispatch windows. Easy to track.</p>
+        <div class="area-status"><span class="area-status-dot" aria-hidden="true"></span> Actively Delivering</div>
+      </div>
+      <div class="area-card reveal reveal-delay-3">
+        <div class="area-icon" aria-hidden="true">🏢</div>
+        <h3>Chanchaga</h3>
+        <p>Chanchaga residential zones. Extended coverage for students further from campus.</p>
+        <div class="area-status"><span class="area-status-dot" aria-hidden="true"></span> Actively Delivering</div>
+      </div>
+    </div>
+
+    <p class="areas-note reveal">📌 More delivery areas are being added soon. If your area isn't listed, <a href="#faq" style="color:var(--aqua);text-decoration:underline;">see our FAQ</a> or contact us directly.</p>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     ORDER SECTION (MAIN)
+     ============================================================ -->
+<section class="order-section" id="order" aria-labelledby="orderTitle">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">Order Now</div>
+      <h2 class="section-title" id="orderTitle">Place Your Water Order</h2>
+      <p class="section-sub">Fill in your details below. Takes less than two minutes.</p>
+    </div>
+
+    <div class="order-layout">
+
+      <!-- ORDER FORM CARD -->
+      <div class="order-form-card reveal">
+        <h3 class="order-form-title">Delivery Details</h3>
+        <p class="order-form-sub">All fields are required. Accurate location info ensures smooth delivery.</p>
+
+        <form id="orderForm" novalidate aria-label="Water order form">
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="fullName">Full Name</label>
+              <input class="form-input" type="text" id="fullName" name="fullName" placeholder="e.g. Abubakar Musa" autocomplete="name" required />
+              <span class="form-error-msg" id="fullNameError" role="alert">Please enter your full name.</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="phone">Phone Number</label>
+              <input class="form-input" type="tel" id="phone" name="phone" placeholder="e.g. 08012345678" autocomplete="tel" required />
+              <span class="form-error-msg" id="phoneError" role="alert">Enter a valid Nigerian phone number.</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="area">Delivery Area</label>
+            <select class="form-select" id="area" name="area" required aria-describedby="areaError">
+              <option value="">-- Select your area --</option>
+              <option value="gidan-kwano">Gidan Kwano</option>
+              <option value="bosso">Bosso</option>
+              <option value="tunga">Tunga</option>
+              <option value="chanchaga">Chanchaga</option>
+            </select>
+            <span class="form-error-msg" id="areaError" role="alert">Please select your delivery area.</span>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="lodge">Lodge / Hostel Name</label>
+              <input class="form-input" type="text" id="lodge" name="lodge" placeholder="e.g. Grace Lodge" required />
+              <span class="form-error-msg" id="lodgeError" role="alert">Please enter your lodge name.</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="room">Room Number</label>
+              <input class="form-input" type="text" id="room" name="room" placeholder="e.g. Room 12B" required />
+              <span class="form-error-msg" id="roomError" role="alert">Please enter your room number.</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="landmark">Nearest Landmark</label>
+            <input class="form-input" type="text" id="landmark" name="landmark" placeholder="e.g. Behind Federal Poly junction" required />
+            <span class="form-error-msg" id="landmarkError" role="alert">Please provide a nearby landmark.</span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="qtyDisplay">Number of Gallons</label>
+            <div class="qty-stepper" role="group" aria-label="Gallon quantity selector">
+              <button type="button" class="qty-btn" id="qtyMinus" aria-label="Decrease quantity">−</button>
+              <div class="qty-val" id="qtyDisplay" aria-live="polite" aria-atomic="true">1</div>
+              <button type="button" class="qty-btn" id="qtyPlus" aria-label="Increase quantity">+</button>
+            </div>
+            <input type="hidden" id="quantity" name="quantity" value="1" />
+          </div>
+
+          <div class="confirm-row">
+            <input type="checkbox" class="confirm-check" id="confirmCheck" name="confirmed" required />
+            <label class="confirm-label" for="confirmCheck">
+              I confirm that my delivery details are correct and I'm ready to proceed with payment.
+            </label>
+          </div>
+
+          <button type="submit" class="btn-pay" id="payBtn" aria-label="Proceed to payment">
+            <span class="btn-pay-text">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="2" stroke="currentColor" stroke-width="2"/><path d="M3 10h18" stroke="currentColor" stroke-width="2"/></svg>
+              Proceed to Payment
+            </span>
+            <span class="btn-pay-loading" aria-hidden="true">
+              <span class="spinner"></span> Processing...
+            </span>
+          </button>
+          <p class="btn-pay-helper">🔒 Secured by Paystack · Your payment info is never stored on our servers</p>
+
+        </form>
+      </div>
+
+      <!-- ORDER SIDEBAR: SUMMARY + QUEUE -->
+      <div class="order-sidebar" id="queue-info">
+
+        <!-- ORDER SUMMARY -->
+        <div class="summary-card reveal reveal-delay-1">
+          <div class="summary-card-title">
+            <span class="summary-card-title-dot" aria-hidden="true"></span>
+            Order Summary
+          </div>
+          <div class="summary-row">
+            <span class="summary-row-label">Gallon(s)</span>
+            <span class="summary-row-val" id="summaryQty">1 gallon</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-row-label">Price per gallon</span>
+            <span class="summary-row-val">₦700</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-row-label">Delivery fee</span>
+            <span class="summary-row-val" id="summaryDelivery">₦200</span>
+          </div>
+          <div class="summary-total">
+            <span class="summary-total-label">Total Amount</span>
+            <span class="summary-total-val" id="summaryTotal">₦900</span>
+          </div>
+        </div>
+
+        <!-- QUEUE CARD -->
+        <div class="queue-card reveal reveal-delay-2">
+          <div class="queue-card-title">📦 Delivery Queue</div>
+          <div class="queue-card-area" id="queueAreaLabel">Select an area to see queue status</div>
+
+          <div class="queue-metric">
+            <div class="queue-metric-label">Gallons before next dispatch</div>
+            <div class="queue-metric-val" id="queueRemaining">— <span class="unit">gallons</span></div>
+            <div class="queue-bar-wrap">
+              <div class="queue-bar-label">
+                <span>Queue Fill</span>
+                <span id="queuePct">—%</span>
+              </div>
+              <div class="queue-bar">
+                <div class="queue-bar-fill" id="queueBarFill" style="width:0%"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="eta-card">
+            <div class="eta-label">Estimated Arrival Time</div>
+            <div class="eta-val" id="etaDisplay">Select your area →</div>
+          </div>
+
+          <div id="queueStatusBadge" class="queue-status-badge active" style="display:none;">
+            <span class="status-dot green" id="queueStatusDot"></span>
+            <span id="queueStatusText">Dispatch Active</span>
+          </div>
+        </div>
+
+      </div><!-- /order-sidebar -->
+    </div><!-- /order-layout -->
+  </div>
+</section>
+
+
+<!-- ============================================================
+     FAQ SECTION
+     ============================================================ -->
+<section class="faq-section" id="faq" aria-labelledby="faqTitle">
+  <div class="container">
+    <div class="section-header reveal" style="text-align:center;">
+      <div class="section-label">Support</div>
+      <h2 class="section-title" id="faqTitle">Frequently Asked Questions</h2>
+      <p class="section-sub" style="margin:0 auto;">Everything you need to know about RuwaKonect.</p>
+    </div>
+
+    <div class="faq-grid" role="list">
+
+      <div class="faq-item reveal" role="listitem">
+        <button class="faq-q" aria-expanded="false" aria-controls="faq1-body" id="faq1-btn">
+          <span class="faq-q-text">How long does delivery take?</span>
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-a" id="faq1-body" role="region" aria-labelledby="faq1-btn">
+          <div class="faq-a-inner">Delivery typically takes 30–60 minutes depending on your area and the current queue length. You can see a live estimate on the order page before you pay. We always aim to exceed expectations.</div>
+        </div>
+      </div>
+
+      <div class="faq-item reveal reveal-delay-1" role="listitem">
+        <button class="faq-q" aria-expanded="false" aria-controls="faq2-body" id="faq2-btn">
+          <span class="faq-q-text">What delivery areas do you cover?</span>
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-a" id="faq2-body" role="region" aria-labelledby="faq2-btn">
+          <div class="faq-a-inner">We currently deliver to Gidan Kwano, Bosso, Tunga, and Chanchaga. More areas are actively being added. If you're just outside our zone, contact us — we'll do our best to accommodate you.</div>
+        </div>
+      </div>
+
+      <div class="faq-item reveal reveal-delay-1" role="listitem">
+        <button class="faq-q" aria-expanded="false" aria-controls="faq3-body" id="faq3-btn">
+          <span class="faq-q-text">Is payment required before delivery?</span>
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-a" id="faq3-body" role="region" aria-labelledby="faq3-btn">
+          <div class="faq-a-inner">Yes. Payment is required upfront through our secure Paystack gateway. This helps us confirm your order and dispatch quickly. No order is placed without a successful payment.</div>
+        </div>
+      </div>
+
+      <div class="faq-item reveal reveal-delay-2" role="listitem">
+        <button class="faq-q" aria-expanded="false" aria-controls="faq4-body" id="faq4-btn">
+          <span class="faq-q-text">Can I order multiple gallons at once?</span>
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-a" id="faq4-body" role="region" aria-labelledby="faq4-btn">
+          <div class="faq-a-inner">Absolutely. You can order up to 10 gallons per transaction using the quantity selector in the order form. The total and queue impact updates automatically. Bulk orders are welcome.</div>
+        </div>
+      </div>
+
+      <div class="faq-item reveal reveal-delay-2" role="listitem">
+        <button class="faq-q" aria-expanded="false" aria-controls="faq5-body" id="faq5-btn">
+          <span class="faq-q-text">What if I entered the wrong location?</span>
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-a" id="faq5-body" role="region" aria-labelledby="faq5-btn">
+          <div class="faq-a-inner">Call our support line immediately after placing your order. If delivery hasn't started yet, we'll update your location. Always double-check your details before confirming your order — it only takes a second.</div>
+        </div>
+      </div>
+
+      <div class="faq-item reveal reveal-delay-3" role="listitem">
+        <button class="faq-q" aria-expanded="false" aria-controls="faq6-body" id="faq6-btn">
+          <span class="faq-q-text">What type of water do you deliver?</span>
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-a" id="faq6-body" role="region" aria-labelledby="faq6-btn">
+          <div class="faq-a-inner">We deliver clean, treated drinking water in standard 20-litre gallons. Our water is sourced from certified suppliers and meets safe drinking standards for everyday student use.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     FINAL CTA STRIP
+     ============================================================ -->
+<section class="cta-strip" aria-labelledby="ctaTitle">
+  <div class="container">
+    <div class="cta-inner reveal">
+      <div class="section-label" style="text-align:center;">Get Started</div>
+      <h2 class="section-title" id="ctaTitle" style="text-align:center;">Ready to order fresh water?</h2>
+      <p>Join hundreds of FUTMINNA students who never run dry. Order in under two minutes.</p>
+      <div class="cta-btns">
+        <a href="#order" class="btn-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Order Water Now
+        </a>
+        <a href="#how-it-works" class="btn-secondary">How It Works</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="footer" aria-label="Site footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" aria-label="RuwaKonect">
+          <div class="nav-logo-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 14c-2.21 0-4-1.79-4-4 0-1.56.89-2.91 2.19-3.59L12 5l1.81 3.41C15.11 9.09 16 10.44 16 12c0 2.21-1.79 4-4 4z" fill="#00d4ff"/>
+            </svg>
+          </div>
+          <span class="nav-logo-text">Ruwa<span>Konect</span></span>
+        </div>
+        <p>Clean water, delivered fast. Serving FUTMINNA off-campus students every day. No queues at the store, no heavy lifting — just order and relax.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a href="#hero">Home</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="#areas">Delivery Areas</a>
+        <a href="#order">Order Now</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Support</h4>
+        <a href="#faq">FAQs</a>
+        <a href="tel:+2348000000000">Call Support</a>
+        <a href="#order">Track My Order</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="tel:+2348000000000">📞 +234 800 000 0000</a>
+        <a href="#">📍 FUTMINNA, Minna</a>
+        <a href="#">💬 WhatsApp Us</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 RuwaKonect. All rights reserved.</p>
+      <p class="footer-note">💧 Serving FUTMINNA off-campus students · Minna, Niger State</p>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ============================================================
+     SUCCESS MODAL
+     ============================================================ -->
+<div class="modal-overlay" id="successModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDesc">
+  <div class="modal">
+    <div class="modal-icon" aria-hidden="true">✅</div>
+    <h2 id="modalTitle">Order Confirmed!</h2>
+    <p id="modalDesc">Your payment has been received and your water order is now in our system. Delivery processing begins shortly.</p>
+    <p>Our team will arrive at your lodge within the estimated window. Keep your phone close!</p>
+    <div class="modal-order-id" id="modalOrderId" aria-label="Order ID"></div>
+    <button class="modal-close" id="modalClose">Done — Back to Home</button>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
+<script>
+  /* ============================================================
+     MOCK DATA — Replace with Supabase reads in production
+     ============================================================ */
+  const PRICE_PER_GALLON = 700;     // ₦ per gallon
+  const DELIVERY_FEE = 200;         // Flat delivery fee
+
+  // Area queue data — will come from Supabase realtime in production
+  const areaData = {
+    'gidan-kwano': {
+      name: 'Gidan Kwano',
+      dispatchCapacity: 40,    // gallons needed to trigger a dispatch
+      currentQueue: 22,        // gallons already queued
+      etaMin: 30,
+      etaMax: 50,
+      status: 'active',        // 'active' | 'busy' | 'offline'
+    },
+    'bosso': {
+      name: 'Bosso',
+      dispatchCapacity: 35,
+      currentQueue: 10,
+      etaMin: 40,
+      etaMax: 65,
+      status: 'active',
+    },
+    'tunga': {
+      name: 'Tunga',
+      dispatchCapacity: 30,
+      currentQueue: 26,
+      etaMin: 45,
+      etaMax: 70,
+      status: 'busy',
+    },
+    'chanchaga': {
+      name: 'Chanchaga',
+      dispatchCapacity: 25,
+      currentQueue: 5,
+      etaMin: 55,
+      etaMax: 80,
+      status: 'active',
+    },
+  };
+
+  /* ============================================================
+     APPLICATION STATE
+     Structured for easy Supabase insertion later
+     ============================================================ */
+  const orderState = {
+    fullName: '',
+    phone: '',
+    area: '',
+    lodge: '',
+    room: '',
+    landmark: '',
+    quantity: 1,
+    totalAmount: 0,
+    orderId: null,
+    timestamp: null,
+    paymentRef: null,  // Paystack reference placeholder
+    status: 'pending', // 'pending' | 'paid' | 'dispatched' | 'delivered'
+  };
+
+  /* ============================================================
+     DOM REFERENCES
+     ============================================================ */
+  const navbar      = document.getElementById('navbar');
+  const hamburger   = document.getElementById('navHamburger');
+  const mobileNav   = document.getElementById('navMobile');
+  const orderForm   = document.getElementById('orderForm');
+  const qtyMinus    = document.getElementById('qtyMinus');
+  const qtyPlus     = document.getElementById('qtyPlus');
+  const qtyDisplay  = document.getElementById('qtyDisplay');
+  const qtyInput    = document.getElementById('quantity');
+  const areaSelect  = document.getElementById('area');
+  const summaryQty  = document.getElementById('summaryQty');
+  const summaryDel  = document.getElementById('summaryDelivery');
+  const summaryTot  = document.getElementById('summaryTotal');
+  const queueAreaLbl = document.getElementById('queueAreaLabel');
+  const queueRem    = document.getElementById('queueRemaining');
+  const queuePct    = document.getElementById('queuePct');
+  const queueBar    = document.getElementById('queueBarFill');
+  const etaDisplay  = document.getElementById('etaDisplay');
+  const queueBadge  = document.getElementById('queueStatusBadge');
+  const queueDot    = document.getElementById('queueStatusDot');
+  const queueTxt    = document.getElementById('queueStatusText');
+  const payBtn      = document.getElementById('payBtn');
+  const successModal = document.getElementById('successModal');
+  const modalClose   = document.getElementById('modalClose');
+  const modalOrderId = document.getElementById('modalOrderId');
+
+  /* ============================================================
+     NAVBAR SCROLL EFFECT
+     ============================================================ */
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 30);
+  }, { passive: true });
+
+  /* ============================================================
+     MOBILE MENU
+     ============================================================ */
+  hamburger.addEventListener('click', () => {
+    const isOpen = mobileNav.classList.toggle('open');
+    hamburger.classList.toggle('open', isOpen);
+    hamburger.setAttribute('aria-expanded', isOpen);
+  });
+
+  // Close mobile menu on link click
+  mobileNav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileNav.classList.remove('open');
+      hamburger.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', false);
+    });
+  });
+
+  /* ============================================================
+     SCROLL REVEAL
+     ============================================================ */
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  /* ============================================================
+     QUANTITY STEPPER
+     ============================================================ */
+  function updateQuantity(newVal) {
+    newVal = Math.max(1, Math.min(10, newVal)); // clamp 1–10
+    orderState.quantity = newVal;
+    qtyDisplay.textContent = newVal;
+    qtyInput.value = newVal;
+    updateSummary();
+    updateQueueDisplay(); // queue impact updates with quantity
+  }
+
+  qtyMinus.addEventListener('click', () => updateQuantity(orderState.quantity - 1));
+  qtyPlus.addEventListener('click',  () => updateQuantity(orderState.quantity + 1));
+
+  /* ============================================================
+     ORDER SUMMARY CALCULATION
+     ============================================================ */
+  function updateSummary() {
+    const qty   = orderState.quantity;
+    const total = qty * PRICE_PER_GALLON + DELIVERY_FEE;
+    orderState.totalAmount = total;
+
+    summaryQty.textContent  = qty === 1 ? '1 gallon' : `${qty} gallons`;
+    summaryDel.textContent  = `₦${DELIVERY_FEE.toLocaleString()}`;
+    summaryTot.textContent  = `₦${total.toLocaleString()}`;
+  }
+
+  /* ============================================================
+     QUEUE DISPLAY LOGIC
+     Each area has: dispatchCapacity, currentQueue, eta range, status
+     Remaining = dispatchCapacity - currentQueue - qty_being_ordered
+     ============================================================ */
+  function updateQueueDisplay() {
+    const areaKey = areaSelect.value;
+    if (!areaKey || !areaData[areaKey]) {
+      queueAreaLbl.textContent = 'Select an area to see queue status';
+      queueRem.innerHTML  = '— <span class="unit">gallons</span>';
+      queuePct.textContent = '—%';
+      queueBar.style.width = '0%';
+      etaDisplay.textContent = 'Select your area →';
+      queueBadge.style.display = 'none';
+      return;
+    }
+
+    const area    = areaData[areaKey];
+    const filled  = area.currentQueue + orderState.quantity;
+    const remaining = Math.max(0, area.dispatchCapacity - filled);
+    const pct       = Math.min(100, Math.round((filled / area.dispatchCapacity) * 100));
+
+    queueAreaLbl.textContent = `📍 ${area.name} · Live Queue`;
+    queueRem.innerHTML  = `${remaining} <span class="unit">gallons</span>`;
+    queuePct.textContent = `${pct}%`;
+    queueBar.style.width  = `${pct}%`;
+
+    // ETA text
+    const addedWait = remaining === 0 ? 0 : Math.round(remaining * 0.8);
+    const etaLow  = area.etaMin + addedWait;
+    const etaHigh = area.etaMax + addedWait;
+    etaDisplay.textContent = `${etaLow}–${etaHigh} minutes`;
+
+    // Status badge
+    queueBadge.style.display = 'inline-flex';
+    if (area.status === 'busy') {
+      queueBadge.className = 'queue-status-badge busy';
+      queueDot.className   = 'status-dot warn';
+      queueTxt.textContent = 'High Demand — Slight Delay';
+    } else {
+      queueBadge.className = 'queue-status-badge active';
+      queueDot.className   = 'status-dot green';
+      queueTxt.textContent = 'Dispatch Active';
+    }
+  }
+
+  areaSelect.addEventListener('change', () => {
+    updateQueueDisplay();
+    updateSummary();
+  });
+
+  /* ============================================================
+     FORM VALIDATION
+     ============================================================ */
+  function validateField(id, errorId, isValid, msg) {
+    const input = document.getElementById(id);
+    const error = document.getElementById(errorId);
+    if (!isValid) {
+      input.classList.add('error');
+      error.textContent = msg || error.textContent;
+      error.classList.add('visible');
+      return false;
+    } else {
+      input.classList.remove('error');
+      error.classList.remove('visible');
+      return true;
+    }
+  }
+
+  function validateForm() {
+    let valid = true;
+    const nameVal     = document.getElementById('fullName').value.trim();
+    const phoneVal    = document.getElementById('phone').value.trim();
+    const areaVal     = document.getElementById('area').value;
+    const lodgeVal    = document.getElementById('lodge').value.trim();
+    const roomVal     = document.getElementById('room').value.trim();
+    const landmarkVal = document.getElementById('landmark').value.trim();
+    const confirmed   = document.getElementById('confirmCheck').checked;
+
+    valid = validateField('fullName', 'fullNameError', nameVal.length >= 3)  && valid;
+    valid = validateField('phone',    'phoneError',    /^(\+?234|0)[789]\d{9}$/.test(phoneVal.replace(/\s/g, ''))) && valid;
+    valid = validateField('area',     'areaError',     areaVal !== '') && valid;
+    valid = validateField('lodge',    'lodgeError',    lodgeVal.length >= 2) && valid;
+    valid = validateField('room',     'roomError',     roomVal.length >= 1)  && valid;
+    valid = validateField('landmark', 'landmarkError', landmarkVal.length >= 3) && valid;
+
+    if (!confirmed) {
+      document.getElementById('confirmCheck').style.borderColor = '#ff4d6d';
+      valid = false;
+    } else {
+      document.getElementById('confirmCheck').style.borderColor = '';
+    }
+
+    // Collect state
+    if (valid) {
+      orderState.fullName  = nameVal;
+      orderState.phone     = phoneVal;
+      orderState.area      = areaVal;
+      orderState.lodge     = lodgeVal;
+      orderState.room      = roomVal;
+      orderState.landmark  = landmarkVal;
+      orderState.timestamp = new Date().toISOString();
+    }
+
+    return valid;
+  }
+
+  /* ============================================================
+     MOCK ORDER ID GENERATOR
+     ============================================================ */
+  function generateOrderId() {
+    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+    let id = 'RK-';
+    for (let i = 0; i < 8; i++) id += chars[Math.floor(Math.random() * chars.length)];
+    return id;
+  }
+
+  /* ============================================================
+     MOCK PAYMENT HANDLER (Paystack integration point)
+     Replace initializePaystack() with real Paystack InlineJS call
+     ============================================================ */
+  async function initializePaystack(orderId) {
+    /*
+      INTEGRATION POINT — Paystack:
+      const handler = PaystackPop.setup({
+        key: 'pk_test_YOUR_PUBLIC_KEY',
+        email: orderState.phone + '@ruwakonect.ng',
+        amount: orderState.totalAmount * 100,
+        ref: orderId,
+        metadata: { order: orderState },
+        callback: (response) => { confirmOrderInSupabase(response.reference); },
+        onClose: () => { payBtn.classList.remove('loading'); },
+      });
+      handler.openIframe();
+    */
+
+    // Mock: simulate payment network delay
+    return new Promise(resolve => setTimeout(() => resolve({ reference: orderId, status: 'success' }), 2200));
+  }
+
+  /* ============================================================
+     MOCK SUPABASE ORDER SAVE
+     Replace with real Supabase insert in production
+     ============================================================ */
+  async function saveOrderToSupabase(orderId) {
+    /*
+      INTEGRATION POINT — Supabase:
+      const { data, error } = await supabase
+        .from('orders')
+        .insert([{
+          order_id: orderId,
+          full_name: orderState.fullName,
+          phone: orderState.phone,
+          area: orderState.area,
+          lodge: orderState.lodge,
+          room: orderState.room,
+          landmark: orderState.landmark,
+          quantity: orderState.quantity,
+          total_amount: orderState.totalAmount,
+          status: 'paid',
+          payment_ref: orderState.paymentRef,
+          created_at: orderState.timestamp,
+        }]);
+      if (error) throw error;
+      return data;
+    */
+
+    // Mock: simulate DB write delay
+    return new Promise(resolve => setTimeout(resolve, 400));
+  }
+
+  /* ============================================================
+     FORM SUBMIT HANDLER
+     ============================================================ */
+  orderForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    if (!validateForm()) return;
+
+    // Show loading state
+    payBtn.classList.add('loading');
+    payBtn.disabled = true;
+
+    try {
+      const orderId = generateOrderId();
+      orderState.orderId = orderId;
+
+      // Process payment (mock)
+      const paymentResult = await initializePaystack(orderId);
+      orderState.paymentRef = paymentResult.reference;
+      orderState.status = 'paid';
+
+      // Save to Supabase (mock)
+      await saveOrderToSupabase(orderId);
+
+      // Show success
+      showSuccessModal(orderId);
+    } catch (err) {
+      console.error('Order submission error:', err);
+      alert('Something went wrong. Please try again or contact support.');
+    } finally {
+      payBtn.classList.remove('loading');
+      payBtn.disabled = false;
+    }
+  });
+
+  /* ============================================================
+     SUCCESS MODAL
+     ============================================================ */
+  function showSuccessModal(orderId) {
+    modalOrderId.textContent = `Order ID: ${orderId}`;
+    successModal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeSuccessModal() {
+    successModal.classList.remove('open');
+    document.body.style.overflow = '';
+    orderForm.reset();
+    updateQuantity(1);
+    updateQueueDisplay();
+    updateSummary();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  modalClose.addEventListener('click', closeSuccessModal);
+  successModal.addEventListener('click', (e) => {
+    if (e.target === successModal) closeSuccessModal();
+  });
+
+  // Keyboard accessibility for modal
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && successModal.classList.contains('open')) closeSuccessModal();
+  });
+
+  /* ============================================================
+     FAQ ACCORDION
+     ============================================================ */
+  document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item    = btn.closest('.faq-item');
+      const isOpen  = item.classList.contains('open');
+
+      // Close all
+      document.querySelectorAll('.faq-item').forEach(i => {
+        i.classList.remove('open');
+        i.querySelector('.faq-q').setAttribute('aria-expanded', false);
+      });
+
+      // Toggle current
+      if (!isOpen) {
+        item.classList.add('open');
+        btn.setAttribute('aria-expanded', true);
+      }
+    });
+  });
+
+  /* ============================================================
+     SMOOTH SCROLL FOR ALL ANCHOR LINKS
+     ============================================================ */
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', (e) => {
+      const id = anchor.getAttribute('href').slice(1);
+      const target = document.getElementById(id);
+      if (!target) return;
+      e.preventDefault();
+      const offset = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 72;
+      window.scrollTo({ top: target.offsetTop - offset, behavior: 'smooth' });
+    });
+  });
+
+  /* ============================================================
+     INIT
+     ============================================================ */
+  updateSummary();
+  updateQueueDisplay();
+</script>
+
+</body>
+</html>

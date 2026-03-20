@@ -1,0 +1,39 @@
+
+/* ============================================================
+   FORM SUBMIT
+   ============================================================ */
+orderForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  if (!validateOrderForm()) return;
+
+  payBtn.classList.add('loading');
+  payBtn.disabled = true;
+
+  const orderId = generateOrderId();
+  orderState.orderId = orderId;
+
+  try {
+    // 1. Open Paystack
+    const payResult = await initializePaystack(orderId);
+    orderState.paymentRef = payResult.reference;
+    orderState.status = 'paid';
+
+    // 2. Save order to Supabase
+    await saveOrder(orderId, payResult.reference);
+
+    // 3. Show success
+    showSuccessModal(orderId);
+    showToast('success', 'Order placed!', 'Your water order is confirmed and in the queue.');
+
+  } catch (err) {
+    if (err.message === 'Payment window closed by user') {
+      showToast('info', 'Payment cancelled', 'You closed the payment window. Your order was not placed.');
+    } else {
+      console.error('Order error:', err);
+      showToast('error', 'Something went wrong', 'Please try again or contact support at ruwakonects@gmail.com');
+    }
+  } finally {
+    payBtn.classList.remove('loading');
+    payBtn.disabled = false;
+  }
+});

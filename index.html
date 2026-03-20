@@ -6,49 +6,72 @@
 <title>RuwaKonect – Premium Water Delivery for FUTMINNA Students</title>
 <meta name="description" content="Order fresh water gallons to your lodge around FUTMINNA. Fast. Reliable. Trackable." />
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Mono:wght@400;500&display=swap');
+
 /* ============================================================
-   CSS CUSTOM PROPERTIES
+   CSS CUSTOM PROPERTIES — Water-blue palette inspired by brand image
    ============================================================ */
 :root {
-  --aqua:       #00d4ff;
-  --aqua-dim:   #00b8e6;
-  --cyan:       #06f7f7;
-  --blue:       #0066ff;
-  --blue-deep:  #003ebe;
-  --indigo:     #3730ff;
-  --navy:       #050d2d;
-  --navy-mid:   #071042;
-  --navy-light: #0b1a60;
-  --glass-bg:   rgba(255,255,255,0.04);
-  --glass-border: rgba(255,255,255,0.1);
-  --glass-hi:   rgba(255,255,255,0.08);
-  --accent:     #00ffb2;
-  --accent-dim: #00cc8e;
+  /* Brand blues — shifted to cerulean/water-blue from image */
+  --aqua:       #29b6f6;
+  --aqua-dim:   #039be5;
+  --cyan:       #4fc3f7;
+  --blue:       #1565c0;
+  --blue-mid:   #1976d2;
+  --blue-deep:  #0d47a1;
+  --blue-bright:#2196f3;
+  --indigo:     #1a237e;
+  --water-1:    #0277bd;
+  --water-2:    #01579b;
+  --water-surface: #29b6f6;
+
+  /* Navy backgrounds — warmer blue tint */
+  --navy:       #071829;
+  --navy-mid:   #0a2040;
+  --navy-light: #0d2d5a;
+
+  /* Glass */
+  --glass-bg:     rgba(255,255,255,0.05);
+  --glass-border: rgba(255,255,255,0.12);
+  --glass-hi:     rgba(255,255,255,0.09);
+
+  /* Accent — keeping a fresh teal-green for CTA contrast */
+  --accent:     #00e5ff;
+  --accent-dim: #00b8d4;
   --warn:       #ffb700;
-  --text-1:     #f0f6ff;
-  --text-2:     #99b4d4;
-  --text-3:     #4e6a8a;
-  --surface:    #08122e;
-  --surface-2:  #0b1840;
-  --shadow-glow: 0 0 60px rgba(0,212,255,0.15);
+
+  /* Text */
+  --text-1: #f0f8ff;
+  --text-2: #90caf9;
+  --text-3: #4a7fa8;
+
+  /* Surfaces */
+  --surface:   #061525;
+  --surface-2: #091e35;
+
+  /* Shadows */
+  --shadow-glow: 0 0 60px rgba(41,182,246,0.2);
   --shadow-card: 0 24px 60px rgba(0,0,0,0.5);
-  --radius-lg:  20px;
-  --radius-xl:  28px;
-  --radius-sm:  10px;
+
+  /* Radii */
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-sm: 10px;
+
+  /* Typography */
   --font-display: 'Syne', system-ui, sans-serif;
   --font-body:    'DM Sans', system-ui, sans-serif;
   --font-mono:    'DM Mono', monospace;
+
+  /* Layout */
   --nav-h: 72px;
   --section-pad: clamp(80px, 12vw, 140px);
   --max-w: 1200px;
-  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
-  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-}
 
-/* ============================================================
-   GOOGLE FONTS IMPORT
-   ============================================================ */
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Mono:wght@400;500&display=swap');
+  /* Easing */
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out:    cubic-bezier(0.22, 1, 0.36, 1);
+}
 
 /* ============================================================
    RESET & BASE
@@ -90,7 +113,7 @@ ul { list-style: none; }
 .reveal-delay-4 { transition-delay: 0.4s; }
 
 /* ============================================================
-   BACKGROUND CANVAS / ORBS
+   BACKGROUND — Water-blue orbs
    ============================================================ */
 .bg-canvas {
   position: fixed;
@@ -102,53 +125,62 @@ ul { list-style: none; }
 .orb {
   position: absolute;
   border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.35;
+  filter: blur(90px);
   animation: orbFloat 18s ease-in-out infinite;
 }
 .orb-1 {
-  width: 600px; height: 600px;
-  background: radial-gradient(circle, #003ebe 0%, transparent 70%);
-  top: -200px; left: -100px;
+  width: 700px; height: 700px;
+  background: radial-gradient(circle, rgba(21,101,192,0.55) 0%, transparent 70%);
+  top: -200px; left: -150px;
   animation-duration: 22s;
+  opacity: 0.5;
 }
 .orb-2 {
-  width: 500px; height: 500px;
-  background: radial-gradient(circle, #00d4ff 0%, transparent 70%);
-  top: 20%; right: -150px;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(41,182,246,0.35) 0%, transparent 70%);
+  top: 15%; right: -180px;
   animation-duration: 18s;
   animation-delay: -6s;
+  opacity: 0.45;
 }
 .orb-3 {
-  width: 400px; height: 400px;
-  background: radial-gradient(circle, #00ffb2 0%, transparent 70%);
-  bottom: 10%; left: 20%;
+  width: 450px; height: 450px;
+  background: radial-gradient(circle, rgba(0,229,255,0.2) 0%, transparent 70%);
+  bottom: 15%; left: 15%;
   animation-duration: 24s;
   animation-delay: -12s;
-  opacity: 0.18;
-}
-.orb-4 {
-  width: 350px; height: 350px;
-  background: radial-gradient(circle, #3730ff 0%, transparent 70%);
-  bottom: 30%; right: 10%;
-  animation-duration: 20s;
-  animation-delay: -3s;
   opacity: 0.25;
 }
+.orb-4 {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(13,71,161,0.5) 0%, transparent 70%);
+  bottom: 30%; right: 5%;
+  animation-duration: 20s;
+  animation-delay: -3s;
+  opacity: 0.4;
+}
+/* Water ripple subtle overlay */
+.orb-5 {
+  width: 900px; height: 900px;
+  background: radial-gradient(circle, rgba(2,119,189,0.18) 0%, transparent 60%);
+  top: 40%; left: 50%;
+  transform: translateX(-50%);
+  animation-duration: 30s;
+  opacity: 0.6;
+}
 @keyframes orbFloat {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33%       { transform: translate(30px, -40px) scale(1.05); }
-  66%       { transform: translate(-20px, 20px) scale(0.95); }
+  0%,100% { transform: translate(0,0) scale(1); }
+  33%      { transform: translate(25px,-35px) scale(1.04); }
+  66%      { transform: translate(-18px,22px) scale(0.96); }
 }
 
-/* noise grain overlay */
 .grain {
   position: fixed;
   inset: 0;
   z-index: 1;
   pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
-  opacity: 0.025;
+  opacity: 0.03;
 }
 
 /* ============================================================
@@ -165,7 +197,7 @@ ul { list-style: none; }
   border-bottom: 1px solid transparent;
 }
 .navbar.scrolled {
-  background: rgba(5, 13, 45, 0.85);
+  background: rgba(7,24,41,0.88);
   backdrop-filter: blur(24px) saturate(1.4);
   -webkit-backdrop-filter: blur(24px) saturate(1.4);
   border-color: var(--glass-border);
@@ -191,17 +223,13 @@ ul { list-style: none; }
   background: linear-gradient(135deg, var(--aqua), var(--blue));
   border-radius: 10px;
   display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 0 16px rgba(0,212,255,0.5);
+  box-shadow: 0 0 18px rgba(41,182,246,0.55);
   flex-shrink: 0;
 }
 .nav-logo-icon svg { width: 20px; height: 20px; }
 .nav-logo-text { color: var(--text-1); }
 .nav-logo-text span { color: var(--aqua); }
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
+.nav-links { display: flex; align-items: center; gap: 4px; }
 .nav-links a {
   padding: 8px 16px;
   border-radius: 8px;
@@ -215,14 +243,14 @@ ul { list-style: none; }
   padding: 10px 22px;
   border-radius: 50px;
   background: linear-gradient(135deg, var(--aqua), var(--blue));
-  color: var(--navy);
+  color: #fff;
   font-weight: 700;
   font-size: 0.875rem;
   letter-spacing: 0.01em;
   transition: transform 0.2s var(--ease-bounce), box-shadow 0.2s;
-  box-shadow: 0 0 20px rgba(0,212,255,0.3);
+  box-shadow: 0 0 20px rgba(41,182,246,0.35);
 }
-.nav-cta:hover { transform: translateY(-2px); box-shadow: 0 0 32px rgba(0,212,255,0.5); }
+.nav-cta:hover { transform: translateY(-2px); box-shadow: 0 0 32px rgba(41,182,246,0.55); }
 .nav-hamburger {
   display: none;
   flex-direction: column;
@@ -247,7 +275,7 @@ ul { list-style: none; }
   position: fixed;
   top: var(--nav-h);
   left: 0; right: 0;
-  background: rgba(5,13,45,0.97);
+  background: rgba(7,24,41,0.97);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border-bottom: 1px solid var(--glass-border);
@@ -275,11 +303,11 @@ ul { list-style: none; }
   display: block;
   padding: 14px;
   border-radius: 12px;
-  color: var(--navy);
+  color: #fff;
 }
 
 /* ============================================================
-   HERO SECTION
+   HERO
    ============================================================ */
 .hero {
   position: relative;
@@ -302,8 +330,8 @@ ul { list-style: none; }
   align-items: center;
   gap: 8px;
   padding: 6px 14px 6px 8px;
-  background: rgba(0,212,255,0.08);
-  border: 1px solid rgba(0,212,255,0.2);
+  background: rgba(41,182,246,0.1);
+  border: 1px solid rgba(41,182,246,0.25);
   border-radius: 50px;
   font-size: 0.78rem;
   font-weight: 600;
@@ -320,10 +348,7 @@ ul { list-style: none; }
   box-shadow: 0 0 8px var(--aqua);
   animation: pulse 2s infinite;
 }
-@keyframes pulse {
-  0%,100% { box-shadow: 0 0 8px var(--aqua); }
-  50%      { box-shadow: 0 0 20px var(--aqua); }
-}
+@keyframes pulse { 0%,100% { box-shadow: 0 0 8px var(--aqua); } 50% { box-shadow: 0 0 20px var(--aqua); } }
 @keyframes fadein { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
 
 .hero-headline {
@@ -360,16 +385,16 @@ ul { list-style: none; }
 .btn-primary {
   padding: 14px 30px;
   border-radius: 50px;
-  background: linear-gradient(135deg, var(--aqua) 0%, var(--blue) 100%);
-  color: var(--navy);
+  background: linear-gradient(135deg, var(--aqua) 0%, var(--blue-mid) 100%);
+  color: #fff;
   font-weight: 700;
   font-size: 0.95rem;
   letter-spacing: 0.01em;
   transition: transform 0.25s var(--ease-bounce), box-shadow 0.25s;
-  box-shadow: 0 0 24px rgba(0,212,255,0.35), 0 8px 30px rgba(0,102,255,0.3);
+  box-shadow: 0 0 24px rgba(41,182,246,0.4), 0 8px 30px rgba(21,101,192,0.35);
   display: inline-flex; align-items: center; gap: 8px;
 }
-.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 0 40px rgba(0,212,255,0.5), 0 16px 40px rgba(0,102,255,0.4); }
+.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 0 40px rgba(41,182,246,0.55), 0 16px 40px rgba(21,101,192,0.45); }
 .btn-secondary {
   padding: 14px 30px;
   border-radius: 50px;
@@ -382,7 +407,7 @@ ul { list-style: none; }
   transition: border-color 0.2s, background 0.2s, transform 0.2s var(--ease-bounce);
   display: inline-flex; align-items: center; gap: 8px;
 }
-.btn-secondary:hover { border-color: var(--aqua); background: rgba(0,212,255,0.06); transform: translateY(-2px); }
+.btn-secondary:hover { border-color: var(--aqua); background: rgba(41,182,246,0.08); transform: translateY(-2px); }
 .hero-stats {
   display: flex;
   flex-wrap: wrap;
@@ -404,18 +429,18 @@ ul { list-style: none; }
 }
 .stat-chip-icon { font-size: 1rem; }
 
-/* hero visual */
+/* Hero visual */
 .hero-visual {
   position: relative;
   animation: fadein 0.8s 0.2s var(--ease-out) both;
 }
 .hero-card-main {
-  background: linear-gradient(135deg, rgba(11,24,96,0.9) 0%, rgba(7,16,66,0.95) 100%);
-  border: 1px solid var(--glass-border);
+  background: linear-gradient(135deg, rgba(13,71,161,0.75) 0%, rgba(7,24,41,0.92) 100%);
+  border: 1px solid rgba(41,182,246,0.2);
   border-radius: var(--radius-xl);
   padding: 28px;
   backdrop-filter: blur(20px);
-  box-shadow: var(--shadow-card), inset 0 1px 0 rgba(255,255,255,0.06), 0 0 60px rgba(0,102,255,0.15);
+  box-shadow: var(--shadow-card), inset 0 1px 0 rgba(255,255,255,0.07), 0 0 60px rgba(21,101,192,0.2);
   animation: heroCardFloat 5s ease-in-out infinite;
   position: relative;
   z-index: 2;
@@ -442,37 +467,32 @@ ul { list-style: none; }
 }
 .hero-card-value span { color: var(--aqua); }
 .hero-card-sub { font-size: 0.82rem; color: var(--text-3); margin-top: 6px; }
-.hero-card-divider { height: 1px; background: var(--glass-border); margin: 20px 0; }
+.hero-card-divider { height: 1px; background: rgba(41,182,246,0.15); margin: 20px 0; }
 .hero-card-rows { display: flex; flex-direction: column; gap: 12px; }
 .hero-card-row { display: flex; align-items: center; justify-content: space-between; }
 .hero-card-row-label { font-size: 0.83rem; color: var(--text-3); }
 .hero-card-row-val { font-size: 0.83rem; font-weight: 600; color: var(--text-2); }
 .hero-card-row-val.green { color: var(--accent); }
 .hero-card-row-val.warn { color: var(--warn); }
-.hero-card-progress-bar {
-  height: 6px; border-radius: 3px; background: rgba(255,255,255,0.07);
-  overflow: hidden; margin-top: 4px;
-}
+.hero-card-progress-bar { height: 6px; border-radius: 3px; background: rgba(255,255,255,0.07); overflow: hidden; margin-top: 4px; }
 .hero-card-progress-fill {
   height: 100%; border-radius: 3px;
-  background: linear-gradient(90deg, var(--blue), var(--aqua));
+  background: linear-gradient(90deg, var(--blue-mid), var(--aqua));
   width: 62%;
   animation: progressPulse 3s ease-in-out infinite;
 }
-@keyframes progressPulse {
-  0%,100% { opacity: 1; } 50% { opacity: 0.7; }
-}
+@keyframes progressPulse { 0%,100% { opacity: 1; } 50% { opacity: 0.7; } }
 .hero-card-badge {
   display: inline-flex; align-items: center; gap: 6px;
   padding: 5px 10px; border-radius: 50px;
-  background: rgba(0,255,178,0.1); border: 1px solid rgba(0,255,178,0.2);
+  background: rgba(0,229,255,0.1); border: 1px solid rgba(0,229,255,0.2);
   font-size: 0.75rem; font-weight: 600; color: var(--accent);
   margin-top: 16px;
 }
 .hero-float-card {
   position: absolute;
-  background: linear-gradient(135deg, rgba(7,16,66,0.92), rgba(11,24,96,0.9));
-  border: 1px solid var(--glass-border);
+  background: linear-gradient(135deg, rgba(13,71,161,0.88), rgba(7,24,41,0.92));
+  border: 1px solid rgba(41,182,246,0.18);
   border-radius: 14px;
   padding: 14px 18px;
   backdrop-filter: blur(16px);
@@ -504,12 +524,12 @@ ul { list-style: none; }
   transition: border-color 0.3s, transform 0.3s var(--ease-bounce), box-shadow 0.3s;
   backdrop-filter: blur(8px);
 }
-.value-card:hover { border-color: rgba(0,212,255,0.3); transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 30px rgba(0,212,255,0.06); }
+.value-card:hover { border-color: rgba(41,182,246,0.35); transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 30px rgba(41,182,246,0.08); }
 .value-icon {
   width: 44px; height: 44px;
   border-radius: 12px;
-  background: linear-gradient(135deg, rgba(0,212,255,0.12), rgba(0,102,255,0.08));
-  border: 1px solid rgba(0,212,255,0.15);
+  background: linear-gradient(135deg, rgba(41,182,246,0.15), rgba(21,101,192,0.1));
+  border: 1px solid rgba(41,182,246,0.18);
   display: flex; align-items: center; justify-content: center;
   margin-bottom: 16px;
 }
@@ -518,7 +538,7 @@ ul { list-style: none; }
 .value-card p { font-size: 0.85rem; color: var(--text-2); line-height: 1.6; }
 
 /* ============================================================
-   HOW IT WORKS
+   SECTION LABELS / TITLES
    ============================================================ */
 .section-label {
   font-family: var(--font-mono);
@@ -543,10 +563,11 @@ ul { list-style: none; }
   line-height: 1.7;
 }
 .section-header { margin-bottom: 60px; }
-.how-section {
-  position: relative; z-index: 2;
-  padding: var(--section-pad) 0;
-}
+
+/* ============================================================
+   HOW IT WORKS
+   ============================================================ */
+.how-section { position: relative; z-index: 2; padding: var(--section-pad) 0; }
 .steps-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -559,7 +580,7 @@ ul { list-style: none; }
   left: calc(12.5% + 24px);
   right: calc(12.5% + 24px);
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--glass-border), var(--aqua), var(--glass-border), transparent);
+  background: linear-gradient(90deg, transparent, rgba(41,182,246,0.2), var(--aqua), rgba(41,182,246,0.2), transparent);
   z-index: 0;
 }
 .step-card {
@@ -567,22 +588,21 @@ ul { list-style: none; }
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-lg);
   padding: 28px 24px;
-  position: relative;
-  z-index: 1;
+  position: relative; z-index: 1;
   transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s var(--ease-bounce);
 }
-.step-card:hover { border-color: rgba(0,212,255,0.25); box-shadow: 0 20px 50px rgba(0,0,0,0.3); transform: translateY(-4px); }
+.step-card:hover { border-color: rgba(41,182,246,0.3); box-shadow: 0 20px 50px rgba(0,0,0,0.3); transform: translateY(-4px); }
 .step-num {
   width: 44px; height: 44px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--aqua), var(--blue));
-  color: var(--navy);
+  background: linear-gradient(135deg, var(--aqua), var(--blue-mid));
+  color: #fff;
   font-family: var(--font-display);
   font-weight: 800;
   font-size: 1.1rem;
   display: flex; align-items: center; justify-content: center;
   margin-bottom: 20px;
-  box-shadow: 0 0 20px rgba(0,212,255,0.3);
+  box-shadow: 0 0 20px rgba(41,182,246,0.35);
 }
 .step-card h3 { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; margin-bottom: 10px; }
 .step-card p { font-size: 0.85rem; color: var(--text-2); line-height: 1.6; }
@@ -592,36 +612,31 @@ ul { list-style: none; }
    AREAS SECTION
    ============================================================ */
 .areas-section { position: relative; z-index: 2; padding: var(--section-pad) 0; }
-.areas-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-}
+.areas-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
 .area-card {
-  background: linear-gradient(135deg, var(--glass-bg), rgba(0,102,255,0.04));
+  background: linear-gradient(135deg, var(--glass-bg), rgba(21,101,192,0.06));
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-lg);
   padding: 28px 24px;
   transition: all 0.3s var(--ease-bounce);
-  position: relative;
-  overflow: hidden;
+  position: relative; overflow: hidden;
 }
 .area-card::before {
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 2px;
-  background: linear-gradient(90deg, var(--blue), var(--aqua));
+  background: linear-gradient(90deg, var(--blue-mid), var(--aqua));
   opacity: 0;
   transition: opacity 0.3s;
 }
 .area-card:hover::before { opacity: 1; }
-.area-card:hover { border-color: rgba(0,212,255,0.2); transform: translateY(-5px); box-shadow: 0 24px 50px rgba(0,0,0,0.35), 0 0 30px rgba(0,212,255,0.05); }
+.area-card:hover { border-color: rgba(41,182,246,0.25); transform: translateY(-5px); box-shadow: 0 24px 50px rgba(0,0,0,0.35), 0 0 30px rgba(41,182,246,0.06); }
 .area-icon {
   width: 50px; height: 50px;
   border-radius: 14px;
-  background: linear-gradient(135deg, rgba(0,102,255,0.15), rgba(0,212,255,0.1));
-  border: 1px solid rgba(0,212,255,0.12);
+  background: linear-gradient(135deg, rgba(21,101,192,0.18), rgba(41,182,246,0.12));
+  border: 1px solid rgba(41,182,246,0.15);
   display: flex; align-items: center; justify-content: center;
   font-size: 1.4rem;
   margin-bottom: 18px;
@@ -638,8 +653,8 @@ ul { list-style: none; }
 .areas-note {
   margin-top: 32px;
   padding: 16px 22px;
-  background: rgba(0,212,255,0.04);
-  border: 1px dashed rgba(0,212,255,0.15);
+  background: rgba(41,182,246,0.04);
+  border: 1px dashed rgba(41,182,246,0.18);
   border-radius: var(--radius-sm);
   font-size: 0.85rem;
   color: var(--text-3);
@@ -657,8 +672,8 @@ ul { list-style: none; }
   align-items: start;
 }
 .order-form-card {
-  background: linear-gradient(145deg, rgba(11,24,96,0.7) 0%, rgba(5,13,45,0.9) 100%);
-  border: 1px solid var(--glass-border);
+  background: linear-gradient(145deg, rgba(13,71,161,0.5) 0%, rgba(7,24,41,0.92) 100%);
+  border: 1px solid rgba(41,182,246,0.18);
   border-radius: var(--radius-xl);
   padding: 40px;
   backdrop-filter: blur(24px);
@@ -671,35 +686,19 @@ ul { list-style: none; }
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 3px;
-  background: linear-gradient(90deg, var(--blue), var(--aqua), var(--accent));
+  background: linear-gradient(90deg, var(--blue-mid), var(--aqua), var(--accent));
 }
-.order-form-title {
-  font-family: var(--font-display);
-  font-size: 1.6rem;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  margin-bottom: 6px;
-}
+.order-form-title { font-family: var(--font-display); font-size: 1.6rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 6px; }
 .order-form-sub { font-size: 0.88rem; color: var(--text-2); margin-bottom: 32px; }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-bottom: 16px;
-}
+.form-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
 .form-group.full { grid-column: 1 / -1; }
-.form-label {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--text-2);
-  letter-spacing: 0.02em;
-}
+.form-label { font-size: 0.8rem; font-weight: 600; color: var(--text-2); letter-spacing: 0.02em; }
 .form-input, .form-select {
   width: 100%;
   padding: 13px 16px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid var(--glass-border);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(41,182,246,0.15);
   border-radius: var(--radius-sm);
   color: var(--text-1);
   font-size: 0.92rem;
@@ -710,20 +709,26 @@ ul { list-style: none; }
 .form-input::placeholder { color: var(--text-3); }
 .form-input:focus, .form-select:focus {
   border-color: var(--aqua);
-  background: rgba(0,212,255,0.04);
-  box-shadow: 0 0 0 3px rgba(0,212,255,0.1);
+  background: rgba(41,182,246,0.06);
+  box-shadow: 0 0 0 3px rgba(41,182,246,0.12);
 }
 .form-input.error { border-color: #ff4d6d; box-shadow: 0 0 0 3px rgba(255,77,109,0.1); }
 .form-error-msg { font-size: 0.75rem; color: #ff4d6d; display: none; }
 .form-error-msg.visible { display: block; }
-.form-select { background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 6L8 10L12 6' stroke='%234e6a8a' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 40px; cursor: pointer; }
-.form-select option { background: var(--navy-mid); color: var(--text-1); }
+.form-select {
+  background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 6L8 10L12 6' stroke='%234a7fa8' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 40px;
+  cursor: pointer;
+}
+.form-select option { background: #0a2040; color: var(--text-1); }
 
-/* quantity stepper */
+/* Quantity stepper */
 .qty-stepper {
   display: flex; align-items: center; gap: 0;
   background: rgba(255,255,255,0.04);
-  border: 1px solid var(--glass-border);
+  border: 1px solid rgba(41,182,246,0.15);
   border-radius: var(--radius-sm);
   overflow: hidden;
   height: 46px;
@@ -737,7 +742,7 @@ ul { list-style: none; }
   transition: background 0.2s;
   flex-shrink: 0;
 }
-.qty-btn:hover { background: rgba(0,212,255,0.08); }
+.qty-btn:hover { background: rgba(41,182,246,0.1); }
 .qty-val {
   flex: 1;
   text-align: center;
@@ -745,20 +750,17 @@ ul { list-style: none; }
   font-size: 1.1rem;
   font-weight: 700;
   color: var(--text-1);
-  border-left: 1px solid var(--glass-border);
-  border-right: 1px solid var(--glass-border);
+  border-left: 1px solid rgba(41,182,246,0.15);
+  border-right: 1px solid rgba(41,182,246,0.15);
   height: 100%;
   display: flex; align-items: center; justify-content: center;
 }
 
-/* confirmation checkbox */
-.confirm-row {
-  display: flex; align-items: flex-start; gap: 12px;
-  margin-top: 24px; margin-bottom: 20px;
-}
+/* Confirm checkbox */
+.confirm-row { display: flex; align-items: flex-start; gap: 12px; margin-top: 24px; margin-bottom: 20px; }
 .confirm-check {
   width: 20px; height: 20px;
-  border: 1.5px solid var(--glass-border);
+  border: 1.5px solid rgba(41,182,246,0.3);
   border-radius: 5px;
   background: rgba(255,255,255,0.04);
   cursor: pointer;
@@ -769,46 +771,44 @@ ul { list-style: none; }
   -webkit-appearance: none;
   position: relative;
 }
-.confirm-check:checked {
-  background: linear-gradient(135deg, var(--aqua), var(--blue));
-  border-color: var(--aqua);
-}
+.confirm-check:checked { background: linear-gradient(135deg, var(--aqua), var(--blue-mid)); border-color: var(--aqua); }
 .confirm-check:checked::after {
   content: '';
   position: absolute;
   top: 3px; left: 7px;
   width: 5px; height: 9px;
-  border: 2px solid var(--navy);
+  border: 2px solid #fff;
   border-top: none; border-left: none;
   transform: rotate(45deg);
 }
 .confirm-label { font-size: 0.85rem; color: var(--text-2); line-height: 1.5; }
+
+/* Pay button */
 .btn-pay {
   width: 100%;
   padding: 16px;
   border-radius: 14px;
-  background: linear-gradient(135deg, var(--aqua) 0%, var(--blue) 60%, var(--indigo) 100%);
-  color: var(--navy);
+  background: linear-gradient(135deg, var(--aqua) 0%, var(--blue-mid) 60%, var(--blue-deep) 100%);
+  color: #fff;
   font-family: var(--font-display);
   font-weight: 800;
   font-size: 1.05rem;
   letter-spacing: 0.01em;
   transition: transform 0.25s var(--ease-bounce), box-shadow 0.25s, opacity 0.2s;
-  box-shadow: 0 0 30px rgba(0,212,255,0.3), 0 10px 30px rgba(0,102,255,0.3);
+  box-shadow: 0 0 30px rgba(41,182,246,0.35), 0 10px 30px rgba(21,101,192,0.35);
   display: flex; align-items: center; justify-content: center; gap: 10px;
   position: relative;
   overflow: hidden;
 }
 .btn-pay::before {
   content: '';
-  position: absolute;
-  inset: 0;
+  position: absolute; inset: 0;
   background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 50%, transparent 100%);
   transform: translateX(-100%);
   transition: transform 0.5s;
 }
 .btn-pay:hover::before { transform: translateX(100%); }
-.btn-pay:hover { transform: translateY(-3px); box-shadow: 0 0 50px rgba(0,212,255,0.45), 0 16px 40px rgba(0,102,255,0.4); }
+.btn-pay:hover { transform: translateY(-3px); box-shadow: 0 0 50px rgba(41,182,246,0.5), 0 16px 40px rgba(21,101,192,0.45); }
 .btn-pay:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 .btn-pay-helper { font-size: 0.78rem; color: var(--text-3); text-align: center; margin-top: 12px; }
 .btn-pay-loading { display: none; }
@@ -816,18 +816,18 @@ ul { list-style: none; }
 .btn-pay.loading .btn-pay-loading { display: flex; align-items: center; gap: 8px; }
 .spinner {
   width: 18px; height: 18px;
-  border: 2px solid rgba(5,13,45,0.3);
-  border-top-color: var(--navy);
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
   border-radius: 50%;
   animation: spin 0.7s linear infinite;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* order summary sidebar */
+/* Order sidebar */
 .order-sidebar { display: flex; flex-direction: column; gap: 20px; }
 .summary-card {
-  background: linear-gradient(145deg, rgba(7,16,66,0.8), rgba(5,13,45,0.9));
-  border: 1px solid var(--glass-border);
+  background: linear-gradient(145deg, rgba(13,71,161,0.6), rgba(7,24,41,0.9));
+  border: 1px solid rgba(41,182,246,0.18);
   border-radius: var(--radius-lg);
   padding: 28px;
   box-shadow: 0 16px 40px rgba(0,0,0,0.3);
@@ -839,57 +839,33 @@ ul { list-style: none; }
   margin-bottom: 20px;
   display: flex; align-items: center; gap: 8px;
 }
-.summary-card-title-dot {
-  width: 8px; height: 8px; border-radius: 50%;
-  background: var(--aqua); box-shadow: 0 0 8px var(--aqua);
-}
+.summary-card-title-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--aqua); box-shadow: 0 0 8px var(--aqua); }
 .summary-row {
   display: flex; justify-content: space-between; align-items: center;
   padding: 10px 0;
-  border-bottom: 1px solid var(--glass-border);
+  border-bottom: 1px solid rgba(41,182,246,0.1);
   font-size: 0.88rem;
 }
 .summary-row:last-child { border-bottom: none; }
 .summary-row-label { color: var(--text-2); }
 .summary-row-val { font-weight: 600; color: var(--text-1); }
-.summary-total {
-  display: flex; justify-content: space-between; align-items: center;
-  padding-top: 16px;
-  margin-top: 4px;
-}
+.summary-total { display: flex; justify-content: space-between; align-items: center; padding-top: 16px; margin-top: 4px; }
 .summary-total-label { font-size: 0.9rem; color: var(--text-2); font-weight: 600; }
-.summary-total-val {
-  font-family: var(--font-display);
-  font-size: 1.7rem;
-  font-weight: 800;
-  color: var(--aqua);
-  letter-spacing: -0.03em;
-}
+.summary-total-val { font-family: var(--font-display); font-size: 1.7rem; font-weight: 800; color: var(--aqua); letter-spacing: -0.03em; }
 
-/* queue card */
+/* Queue card */
 .queue-card {
-  background: linear-gradient(145deg, rgba(7,16,66,0.8), rgba(5,13,45,0.9));
-  border: 1px solid var(--glass-border);
+  background: linear-gradient(145deg, rgba(13,71,161,0.6), rgba(7,24,41,0.9));
+  border: 1px solid rgba(41,182,246,0.18);
   border-radius: var(--radius-lg);
   padding: 28px;
   box-shadow: 0 16px 40px rgba(0,0,0,0.3);
 }
-.queue-card-title {
-  font-family: var(--font-display);
-  font-size: 1rem;
-  font-weight: 700;
-  margin-bottom: 6px;
-  color: var(--text-1);
-}
-.queue-card-area {
-  font-size: 0.82rem;
-  color: var(--text-3);
-  margin-bottom: 22px;
-  font-family: var(--font-mono);
-}
+.queue-card-title { font-family: var(--font-display); font-size: 1rem; font-weight: 700; margin-bottom: 6px; color: var(--text-1); }
+.queue-card-area { font-size: 0.82rem; color: var(--text-3); margin-bottom: 22px; font-family: var(--font-mono); }
 .queue-metric {
-  background: rgba(0,212,255,0.04);
-  border: 1px solid rgba(0,212,255,0.1);
+  background: rgba(41,182,246,0.05);
+  border: 1px solid rgba(41,182,246,0.12);
   border-radius: var(--radius-sm);
   padding: 16px;
   margin-bottom: 12px;
@@ -900,25 +876,16 @@ ul { list-style: none; }
 .queue-bar-wrap { margin-top: 8px; }
 .queue-bar-label { display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--text-3); margin-bottom: 6px; }
 .queue-bar { height: 8px; border-radius: 4px; background: rgba(255,255,255,0.07); overflow: hidden; }
-.queue-bar-fill {
-  height: 100%; border-radius: 4px;
-  background: linear-gradient(90deg, var(--blue), var(--aqua));
-  transition: width 0.5s var(--ease-out);
-}
+.queue-bar-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, var(--blue-mid), var(--aqua)); transition: width 0.5s var(--ease-out); }
 .eta-card {
-  background: linear-gradient(135deg, rgba(0,255,178,0.06), rgba(0,212,255,0.04));
-  border: 1px solid rgba(0,255,178,0.12);
+  background: linear-gradient(135deg, rgba(0,229,255,0.07), rgba(41,182,246,0.04));
+  border: 1px solid rgba(0,229,255,0.14);
   border-radius: var(--radius-sm);
   padding: 16px;
   margin-top: 12px;
 }
 .eta-label { font-size: 0.72rem; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
-.eta-val {
-  font-family: var(--font-display);
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: var(--accent);
-}
+.eta-val { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; color: var(--accent); }
 .queue-status-badge {
   display: inline-flex; align-items: center; gap: 6px;
   padding: 5px 12px;
@@ -927,11 +894,199 @@ ul { list-style: none; }
   font-weight: 600;
   margin-top: 14px;
 }
-.queue-status-badge.active { background: rgba(0,255,178,0.1); border: 1px solid rgba(0,255,178,0.2); color: var(--accent); }
-.queue-status-badge.busy { background: rgba(255,183,0,0.1); border: 1px solid rgba(255,183,0,0.2); color: var(--warn); }
+.queue-status-badge.active { background: rgba(0,229,255,0.1); border: 1px solid rgba(0,229,255,0.22); color: var(--accent); }
+.queue-status-badge.busy   { background: rgba(255,183,0,0.1); border: 1px solid rgba(255,183,0,0.22); color: var(--warn); }
+.queue-status-badge.offline{ background: rgba(255,77,109,0.1); border: 1px solid rgba(255,77,109,0.22); color: #ff4d6d; }
 .status-dot { width: 6px; height: 6px; border-radius: 50%; }
 .status-dot.green { background: var(--accent); box-shadow: 0 0 6px var(--accent); }
-.status-dot.warn { background: var(--warn); box-shadow: 0 0 6px var(--warn); }
+.status-dot.warn  { background: var(--warn);   box-shadow: 0 0 6px var(--warn); }
+.status-dot.red   { background: #ff4d6d;       box-shadow: 0 0 6px #ff4d6d; }
+
+/* ============================================================
+   PARTNERS SECTION
+   ============================================================ */
+.partners-section { position: relative; z-index: 2; padding: var(--section-pad) 0; }
+.partners-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 0;
+}
+.partner-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 40px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition: border-color 0.3s, transform 0.3s var(--ease-bounce), box-shadow 0.3s;
+  backdrop-filter: blur(8px);
+  min-height: 200px;
+  position: relative;
+  overflow: hidden;
+}
+.partner-card::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--blue-mid), var(--aqua));
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.partner-card:hover::before { opacity: 1; }
+.partner-card:hover { border-color: rgba(41,182,246,0.3); transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 30px rgba(41,182,246,0.07); }
+.partner-card.empty {
+  border-style: dashed;
+  opacity: 0.45;
+}
+.partner-card.empty:hover { opacity: 0.65; }
+
+.partner-logo-wrap {
+  width: 80px; height: 80px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(21,101,192,0.15), rgba(41,182,246,0.1));
+  border: 1px solid rgba(41,182,246,0.2);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 18px;
+  font-size: 2rem;
+  overflow: hidden;
+}
+.partner-logo-wrap img {
+  width: 100%; height: 100%;
+  object-fit: contain;
+  padding: 8px;
+}
+.partner-name {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-1);
+  margin-bottom: 6px;
+}
+.partner-desc { font-size: 0.82rem; color: var(--text-2); line-height: 1.55; }
+.partner-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  margin-top: 14px;
+  padding: 4px 12px;
+  background: rgba(41,182,246,0.08);
+  border: 1px solid rgba(41,182,246,0.18);
+  border-radius: 50px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--aqua);
+  letter-spacing: 0.04em;
+}
+.partner-empty-text { font-size: 0.85rem; color: var(--text-3); margin-top: 8px; }
+
+/* ============================================================
+   CONTACT / PARTNERSHIP SECTION
+   ============================================================ */
+.contact-section { position: relative; z-index: 2; padding: var(--section-pad) 0; }
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+.contact-info { }
+.contact-info .section-sub { margin-bottom: 32px; }
+.contact-detail {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  margin-bottom: 14px;
+  transition: border-color 0.3s, background 0.3s;
+}
+.contact-detail:hover { border-color: rgba(41,182,246,0.25); background: rgba(41,182,246,0.04); }
+.contact-detail-icon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(41,182,246,0.15), rgba(21,101,192,0.1));
+  border: 1px solid rgba(41,182,246,0.18);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+.contact-detail-label { font-size: 0.72rem; font-weight: 600; color: var(--text-3); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 4px; }
+.contact-detail-val {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-1);
+}
+.contact-detail-val a { color: var(--aqua); transition: color 0.2s; }
+.contact-detail-val a:hover { color: var(--accent); }
+
+/* Partnership form */
+.contact-form-card {
+  background: linear-gradient(145deg, rgba(13,71,161,0.45) 0%, rgba(7,24,41,0.9) 100%);
+  border: 1px solid rgba(41,182,246,0.18);
+  border-radius: var(--radius-xl);
+  padding: 36px;
+  backdrop-filter: blur(20px);
+  box-shadow: var(--shadow-card), inset 0 1px 0 rgba(255,255,255,0.04);
+  position: relative;
+  overflow: hidden;
+}
+.contact-form-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--blue-mid), var(--aqua), var(--accent));
+}
+.contact-form-title { font-family: var(--font-display); font-size: 1.3rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 6px; }
+.contact-form-sub { font-size: 0.86rem; color: var(--text-2); margin-bottom: 26px; }
+.contact-textarea {
+  width: 100%;
+  padding: 13px 16px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(41,182,246,0.15);
+  border-radius: var(--radius-sm);
+  color: var(--text-1);
+  font-size: 0.92rem;
+  outline: none;
+  resize: vertical;
+  min-height: 110px;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+}
+.contact-textarea::placeholder { color: var(--text-3); }
+.contact-textarea:focus { border-color: var(--aqua); background: rgba(41,182,246,0.06); box-shadow: 0 0 0 3px rgba(41,182,246,0.12); }
+.btn-contact {
+  width: 100%;
+  padding: 14px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--aqua), var(--blue-mid));
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.98rem;
+  margin-top: 8px;
+  transition: transform 0.2s var(--ease-bounce), box-shadow 0.2s, opacity 0.2s;
+  box-shadow: 0 0 24px rgba(41,182,246,0.3);
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.btn-contact:hover { transform: translateY(-2px); box-shadow: 0 0 40px rgba(41,182,246,0.45); }
+.btn-contact:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+.contact-success-msg {
+  display: none;
+  padding: 14px 18px;
+  background: rgba(0,229,255,0.08);
+  border: 1px solid rgba(0,229,255,0.2);
+  border-radius: var(--radius-sm);
+  font-size: 0.88rem;
+  color: var(--accent);
+  margin-top: 12px;
+  text-align: center;
+}
+.contact-success-msg.visible { display: block; }
 
 /* ============================================================
    FAQ SECTION
@@ -945,8 +1100,8 @@ ul { list-style: none; }
   overflow: hidden;
   transition: border-color 0.3s, box-shadow 0.3s;
 }
-.faq-item:hover { border-color: rgba(0,212,255,0.15); box-shadow: 0 8px 30px rgba(0,0,0,0.2); }
-.faq-item.open { border-color: rgba(0,212,255,0.2); }
+.faq-item:hover { border-color: rgba(41,182,246,0.18); box-shadow: 0 8px 30px rgba(0,0,0,0.2); }
+.faq-item.open { border-color: rgba(41,182,246,0.25); }
 .faq-q {
   display: flex; justify-content: space-between; align-items: center;
   padding: 20px 24px;
@@ -963,27 +1118,18 @@ ul { list-style: none; }
   color: var(--aqua);
   font-size: 1rem;
 }
-.faq-item.open .faq-icon { transform: rotate(45deg); background: rgba(0,212,255,0.1); border-color: rgba(0,212,255,0.2); }
-.faq-a {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s var(--ease-out), padding 0.3s;
-  padding: 0 24px;
-}
+.faq-item.open .faq-icon { transform: rotate(45deg); background: rgba(41,182,246,0.1); border-color: rgba(41,182,246,0.25); }
+.faq-a { max-height: 0; overflow: hidden; transition: max-height 0.4s var(--ease-out); padding: 0 24px; }
 .faq-a-inner { padding-bottom: 20px; font-size: 0.88rem; color: var(--text-2); line-height: 1.7; }
 .faq-item.open .faq-a { max-height: 200px; }
 
 /* ============================================================
    FINAL CTA STRIP
    ============================================================ */
-.cta-strip {
-  position: relative; z-index: 2;
-  padding: 100px 0;
-  overflow: hidden;
-}
+.cta-strip { position: relative; z-index: 2; padding: 100px 0; overflow: hidden; }
 .cta-inner {
-  background: linear-gradient(135deg, rgba(0,102,255,0.12) 0%, rgba(0,212,255,0.08) 100%);
-  border: 1px solid rgba(0,212,255,0.15);
+  background: linear-gradient(135deg, rgba(21,101,192,0.15) 0%, rgba(41,182,246,0.1) 100%);
+  border: 1px solid rgba(41,182,246,0.18);
   border-radius: 32px;
   padding: 72px 60px;
   text-align: center;
@@ -996,7 +1142,7 @@ ul { list-style: none; }
   top: -80px; left: 50%;
   transform: translateX(-50%);
   width: 400px; height: 200px;
-  background: radial-gradient(ellipse, rgba(0,212,255,0.12), transparent);
+  background: radial-gradient(ellipse, rgba(41,182,246,0.14), transparent);
   pointer-events: none;
 }
 .cta-inner .section-title { margin-bottom: 16px; }
@@ -1006,11 +1152,7 @@ ul { list-style: none; }
 /* ============================================================
    FOOTER
    ============================================================ */
-.footer {
-  position: relative; z-index: 2;
-  border-top: 1px solid var(--glass-border);
-  padding: 60px 0 40px;
-}
+.footer { position: relative; z-index: 2; border-top: 1px solid var(--glass-border); padding: 60px 0 40px; }
 .footer-grid {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1fr;
@@ -1018,21 +1160,8 @@ ul { list-style: none; }
   margin-bottom: 50px;
 }
 .footer-brand p { font-size: 0.88rem; color: var(--text-3); margin-top: 16px; line-height: 1.7; max-width: 280px; }
-.footer-col h4 {
-  font-family: var(--font-display);
-  font-size: 0.85rem;
-  font-weight: 700;
-  margin-bottom: 16px;
-  color: var(--text-1);
-  letter-spacing: 0.02em;
-}
-.footer-col a {
-  display: block;
-  font-size: 0.85rem;
-  color: var(--text-3);
-  margin-bottom: 10px;
-  transition: color 0.2s;
-}
+.footer-col h4 { font-family: var(--font-display); font-size: 0.85rem; font-weight: 700; margin-bottom: 16px; color: var(--text-1); letter-spacing: 0.02em; }
+.footer-col a { display: block; font-size: 0.85rem; color: var(--text-3); margin-bottom: 10px; transition: color 0.2s; }
 .footer-col a:hover { color: var(--aqua); }
 .footer-bottom {
   border-top: 1px solid var(--glass-border);
@@ -1052,7 +1181,7 @@ ul { list-style: none; }
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(5,13,45,0.85);
+  background: rgba(7,24,41,0.88);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   z-index: 200;
@@ -1065,7 +1194,7 @@ ul { list-style: none; }
 .modal-overlay.open { opacity: 1; pointer-events: all; }
 .modal {
   background: linear-gradient(145deg, var(--surface-2), var(--surface));
-  border: 1px solid var(--glass-border);
+  border: 1px solid rgba(41,182,246,0.2);
   border-radius: var(--radius-xl);
   padding: 48px 40px;
   max-width: 440px;
@@ -1073,7 +1202,7 @@ ul { list-style: none; }
   text-align: center;
   transform: scale(0.9) translateY(20px);
   transition: transform 0.4s var(--ease-bounce);
-  box-shadow: var(--shadow-card), 0 0 80px rgba(0,212,255,0.12);
+  box-shadow: var(--shadow-card), 0 0 80px rgba(41,182,246,0.15);
   position: relative;
   overflow: hidden;
 }
@@ -1083,33 +1212,27 @@ ul { list-style: none; }
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 3px;
-  background: linear-gradient(90deg, var(--blue), var(--aqua), var(--accent));
+  background: linear-gradient(90deg, var(--blue-mid), var(--aqua), var(--accent));
 }
 .modal-icon {
   width: 80px; height: 80px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(0,255,178,0.15), rgba(0,212,255,0.06));
-  border: 2px solid rgba(0,255,178,0.25);
+  background: radial-gradient(circle, rgba(0,229,255,0.15), rgba(41,182,246,0.06));
+  border: 2px solid rgba(0,229,255,0.25);
   display: flex; align-items: center; justify-content: center;
   font-size: 2.2rem;
   margin: 0 auto 24px;
   animation: iconBounce 0.6s 0.2s var(--ease-bounce) both;
 }
 @keyframes iconBounce { from { transform: scale(0); } to { transform: scale(1); } }
-.modal h2 {
-  font-family: var(--font-display);
-  font-size: 1.7rem;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  margin-bottom: 12px;
-}
+.modal h2 { font-family: var(--font-display); font-size: 1.7rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 12px; }
 .modal p { font-size: 0.9rem; color: var(--text-2); line-height: 1.65; margin-bottom: 8px; }
 .modal-order-id {
   display: inline-block;
   margin-top: 16px;
   padding: 8px 16px;
-  background: rgba(0,212,255,0.07);
-  border: 1px solid rgba(0,212,255,0.15);
+  background: rgba(41,182,246,0.08);
+  border: 1px solid rgba(41,182,246,0.18);
   border-radius: 8px;
   font-family: var(--font-mono);
   font-size: 0.85rem;
@@ -1120,34 +1243,85 @@ ul { list-style: none; }
 .modal-close {
   padding: 13px 32px;
   border-radius: 50px;
-  background: linear-gradient(135deg, var(--aqua), var(--blue));
-  color: var(--navy);
+  background: linear-gradient(135deg, var(--aqua), var(--blue-mid));
+  color: #fff;
   font-weight: 700;
   font-size: 0.92rem;
   transition: transform 0.2s var(--ease-bounce), box-shadow 0.2s;
-  box-shadow: 0 0 20px rgba(0,212,255,0.25);
+  box-shadow: 0 0 20px rgba(41,182,246,0.28);
 }
-.modal-close:hover { transform: translateY(-2px); box-shadow: 0 0 32px rgba(0,212,255,0.4); }
+.modal-close:hover { transform: translateY(-2px); box-shadow: 0 0 32px rgba(41,182,246,0.45); }
+
+/* ============================================================
+   TOAST
+   ============================================================ */
+.toast-container {
+  position: fixed;
+  bottom: 24px; right: 24px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+}
+.toast {
+  min-width: 280px; max-width: 360px;
+  background: rgba(7,24,41,0.95);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  padding: 14px 18px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+  display: flex; align-items: flex-start; gap: 12px;
+  pointer-events: all;
+  animation: toastIn 0.4s var(--ease-bounce) both;
+}
+.toast.removing { animation: toastOut 0.3s var(--ease-out) forwards; }
+@keyframes toastIn  { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: none; } }
+@keyframes toastOut { to   { opacity: 0; transform: translateX(30px); height: 0; margin: 0; padding: 0; } }
+.toast-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 2px; }
+.toast-body { flex: 1; }
+.toast-title { font-size: 0.88rem; font-weight: 700; color: var(--text-1); margin-bottom: 2px; }
+.toast-msg   { font-size: 0.78rem; color: var(--text-2); line-height: 1.5; }
+.toast.success { border-color: rgba(0,229,255,0.2); }
+.toast.error   { border-color: rgba(255,77,109,0.2); }
+
+/* ============================================================
+   LOADING STATE (for queue fetch)
+   ============================================================ */
+.queue-loading {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 0.82rem; color: var(--text-3);
+  padding: 12px 0;
+}
+.queue-loading-spinner {
+  width: 16px; height: 16px;
+  border: 2px solid rgba(41,182,246,0.2);
+  border-top-color: var(--aqua);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
 
 /* ============================================================
    RESPONSIVE
    ============================================================ */
 @media (max-width: 1024px) {
-  .hero .container { grid-template-columns: 1fr; gap: 48px; }
-  .hero-visual { max-width: 480px; }
-  .value-strip .container { grid-template-columns: repeat(2, 1fr); }
-  .steps-grid { grid-template-columns: repeat(2, 1fr); }
-  .steps-connector { display: none; }
-  .areas-grid { grid-template-columns: repeat(2, 1fr); }
-  .order-layout { grid-template-columns: 1fr; }
-  .order-sidebar { grid-row: 2; }
-  .footer-grid { grid-template-columns: 1fr 1fr; gap: 30px; }
+  .hero .container     { grid-template-columns: 1fr; gap: 48px; }
+  .hero-visual         { max-width: 480px; }
+  .value-strip .container { grid-template-columns: repeat(2,1fr); }
+  .steps-grid          { grid-template-columns: repeat(2,1fr); }
+  .steps-connector     { display: none; }
+  .areas-grid          { grid-template-columns: repeat(2,1fr); }
+  .order-layout        { grid-template-columns: 1fr; }
+  .order-sidebar       { grid-row: 2; }
+  .partners-grid       { grid-template-columns: repeat(2,1fr); }
+  .contact-layout      { grid-template-columns: 1fr; }
+  .footer-grid         { grid-template-columns: 1fr 1fr; gap: 30px; }
 }
 @media (max-width: 768px) {
   .nav-links, .nav-cta { display: none; }
-  .nav-hamburger { display: flex; }
-  .hero { padding-bottom: 80px; }
-  .hero-headline { font-size: 2.4rem; }
+  .nav-hamburger       { display: flex; }
+  .hero                { padding-bottom: 80px; }
+  .hero-headline       { font-size: 2.4rem; }
   .hero-visual {
     display: block;
     max-width: 360px;
@@ -1156,31 +1330,36 @@ ul { list-style: none; }
   }
   .hero-float-1 { top: -14px; right: -6px; min-width: 130px; font-size: 0.85rem; padding: 10px 14px; }
   .hero-float-2 { bottom: 10px; left: -6px; min-width: 130px; font-size: 0.85rem; padding: 10px 14px; }
-  .float-card-val { font-size: 1rem; }
-  .hero-card-main { padding: 22px 18px; }
-  .hero-card-value { font-size: 1.9rem; }
+  .float-card-val      { font-size: 1rem; }
+  .hero-card-main      { padding: 22px 18px; }
+  .hero-card-value     { font-size: 1.9rem; }
   .value-strip .container { grid-template-columns: 1fr; }
-  .faq-grid { grid-template-columns: 1fr; }
-  .cta-inner { padding: 48px 24px; }
-  .footer-grid { grid-template-columns: 1fr; }
-  .form-row { grid-template-columns: 1fr; }
-  .order-form-card { padding: 28px 20px; }
+  .faq-grid            { grid-template-columns: 1fr; }
+  .cta-inner           { padding: 48px 24px; }
+  .footer-grid         { grid-template-columns: 1fr; }
+  .form-row            { grid-template-columns: 1fr; }
+  .order-form-card     { padding: 28px 20px; }
+  .partners-grid       { grid-template-columns: 1fr; }
+  .contact-form-card   { padding: 24px 18px; }
 }
 @media (max-width: 480px) {
-  .hero-btns { flex-direction: column; }
+  .hero-btns   { flex-direction: column; }
   .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
-  .modal { padding: 36px 24px; }
+  .modal       { padding: 36px 24px; }
+  .toast-container { left: 16px; right: 16px; bottom: 16px; }
+  .toast { min-width: unset; max-width: 100%; }
 }
 </style>
 </head>
 <body>
 
-<!-- Background orbs and grain -->
+<!-- Background -->
 <div class="bg-canvas" aria-hidden="true">
   <div class="orb orb-1"></div>
   <div class="orb orb-2"></div>
   <div class="orb orb-3"></div>
   <div class="orb orb-4"></div>
+  <div class="orb orb-5"></div>
 </div>
 <div class="grain" aria-hidden="true"></div>
 
@@ -1190,31 +1369,33 @@ ul { list-style: none; }
 <header class="navbar" id="navbar" role="banner">
   <div class="container">
     <a href="#" class="nav-logo" aria-label="RuwaKonect Home">
-      <img src="Logo.png" width= 40% height= 40% alt="Ruwa Connect">
-      
+      <div class="nav-logo-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 14c-2.21 0-4-1.79-4-4 0-1.56.89-2.91 2.19-3.59L12 5l1.81 3.41C15.11 9.09 16 10.44 16 12c0 2.21-1.79 4-4 4z" fill="#ffffff"/>
+        </svg>
+      </div>
+      <span class="nav-logo-text">Ruwa<span>Konect</span></span>
     </a>
-
     <nav class="nav-links" aria-label="Primary navigation">
       <a href="#hero">Home</a>
       <a href="#how-it-works">How It Works</a>
       <a href="#order">Order</a>
-      <a href="#queue-info">Queue Info</a>
+      <a href="#partners">Partners</a>
+      <a href="#contact">Contact</a>
     </nav>
-
     <a href="#order" class="nav-cta" aria-label="Order water now">Order Water</a>
-
     <button class="nav-hamburger" id="navHamburger" aria-label="Toggle mobile menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
   </div>
 </header>
 
-<!-- Mobile nav -->
 <nav class="nav-mobile" id="navMobile" aria-label="Mobile navigation">
   <a href="#hero">Home</a>
   <a href="#how-it-works">How It Works</a>
   <a href="#order">Order</a>
-  <a href="#queue-info">Queue Info</a>
+  <a href="#partners">Partners</a>
+  <a href="#contact">Contact</a>
   <a href="#order" class="nav-cta">Order Water Now</a>
 </nav>
 
@@ -1229,17 +1410,14 @@ ul { list-style: none; }
         <span class="hero-badge-dot" aria-hidden="true"></span>
         Live · FUTMINNA Off-Campus Delivery
       </div>
-
       <h1 class="hero-headline" id="heroHeadline">
         Fresh Water<br>
         <span class="line-color">Delivered to</span><br>
         Your Lodge
       </h1>
-
       <p class="hero-sub">
         Order quality drinking water gallons with real-time queue tracking and seamless payment. Built exclusively for FUTMINNA off-campus students.
       </p>
-
       <div class="hero-btns">
         <a href="#order" class="btn-primary">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -1250,7 +1428,6 @@ ul { list-style: none; }
           See How It Works
         </a>
       </div>
-
       <div class="hero-stats" role="list" aria-label="Service highlights">
         <div class="stat-chip" role="listitem"><span class="stat-chip-icon" aria-hidden="true">⚡</span> Fast Delivery</div>
         <div class="stat-chip" role="listitem"><span class="stat-chip-icon" aria-hidden="true">🔒</span> Secure Payment</div>
@@ -1259,52 +1436,31 @@ ul { list-style: none; }
       </div>
     </div>
 
-    <!-- Hero visual mockup -->
     <div class="hero-visual" aria-hidden="true">
       <div class="hero-float-card hero-float-1">
         <div class="float-card-label">Active Orders</div>
-        <div class="float-card-val aqua">124</div>
+        <div class="float-card-val aqua" id="heroActiveOrders">—</div>
       </div>
-
       <div class="hero-card-main">
         <div class="hero-card-label">Current Delivery Status</div>
-        <div class="hero-card-value"><span>18</span> Gallons</div>
-        <div class="hero-card-sub">remaining before Gidan Kwano dispatch</div>
-
+        <div class="hero-card-value"><span id="heroGallons">—</span> Gallons</div>
+        <div class="hero-card-sub" id="heroAreaName">Loading queue data…</div>
         <div class="hero-card-divider"></div>
-
         <div class="hero-card-rows">
-          <div class="hero-card-row">
-            <span class="hero-card-row-label">Queue Position</span>
-            <span class="hero-card-row-val">#7 in line</span>
-          </div>
-          <div class="hero-card-row">
-            <span class="hero-card-row-label">ETA</span>
-            <span class="hero-card-row-val green">35–50 mins</span>
-          </div>
-          <div class="hero-card-row">
-            <span class="hero-card-row-label">Price / Gallon</span>
-            <span class="hero-card-row-val">₦700</span>
-          </div>
-          <div class="hero-card-row">
-            <span class="hero-card-row-label">Payment</span>
-            <span class="hero-card-row-val warn">Pending</span>
-          </div>
+          <div class="hero-card-row"><span class="hero-card-row-label">Queue Position</span><span class="hero-card-row-val" id="heroQueuePos">—</span></div>
+          <div class="hero-card-row"><span class="hero-card-row-label">ETA</span><span class="hero-card-row-val green" id="heroEta">—</span></div>
+          <div class="hero-card-row"><span class="hero-card-row-label">Price / Gallon</span><span class="hero-card-row-val" id="heroPpg">—</span></div>
+          <div class="hero-card-row"><span class="hero-card-row-label">Status</span><span class="hero-card-row-val green" id="heroStatus">—</span></div>
         </div>
-
-        <div class="hero-card-progress-bar">
-          <div class="hero-card-progress-fill"></div>
-        </div>
-
+        <div class="hero-card-progress-bar"><div class="hero-card-progress-fill" id="heroProgressFill"></div></div>
         <div class="hero-card-badge">
           <span style="width:6px;height:6px;border-radius:50%;background:var(--accent);display:inline-block;box-shadow:0 0 6px var(--accent)"></span>
           Dispatch queue active
         </div>
       </div>
-
       <div class="hero-float-card hero-float-2">
         <div class="float-card-label">Delivered Today</div>
-        <div class="float-card-val accent">87 Gallons</div>
+        <div class="float-card-val accent" id="heroDeliveredToday">—</div>
       </div>
     </div>
   </div>
@@ -1318,39 +1474,28 @@ ul { list-style: none; }
   <div class="container">
     <div class="value-card reveal">
       <div class="value-icon">
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M13 2L4.09 12.97H12L11 22l8.91-10.97H12L13 2z" stroke="#00d4ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+        <svg viewBox="0 0 24 24" fill="none"><path d="M13 2L4.09 12.97H12L11 22l8.91-10.97H12L13 2z" stroke="#29b6f6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
       <h3>Lightning Fast</h3>
       <p>Get water delivered to your lodge within 30–60 minutes. No waiting, no stress.</p>
     </div>
     <div class="value-card reveal reveal-delay-1">
       <div class="value-icon">
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="3" y="6" width="18" height="13" rx="2" stroke="#00d4ff" stroke-width="1.5"/>
-          <path d="M3 10h18" stroke="#00d4ff" stroke-width="1.5"/>
-          <path d="M7 15h4" stroke="#00d4ff" stroke-width="1.5" stroke-linecap="round"/>
-        </svg>
+        <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="13" rx="2" stroke="#29b6f6" stroke-width="1.5"/><path d="M3 10h18" stroke="#29b6f6" stroke-width="1.5"/><path d="M7 15h4" stroke="#29b6f6" stroke-width="1.5" stroke-linecap="round"/></svg>
       </div>
       <h3>Secure Payment</h3>
       <p>Pay seamlessly with Paystack. Your transaction is safe and immediately confirmed.</p>
     </div>
     <div class="value-card reveal reveal-delay-2">
       <div class="value-icon">
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="#00d4ff" stroke-width="1.5"/>
-          <circle cx="12" cy="9" r="2.5" stroke="#00d4ff" stroke-width="1.5"/>
-        </svg>
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="#29b6f6" stroke-width="1.5"/><circle cx="12" cy="9" r="2.5" stroke="#29b6f6" stroke-width="1.5"/></svg>
       </div>
       <h3>Off-Campus Ready</h3>
-      <p>Designed for students in Gidan Kwano, Bosso, Tunga, Chanchaga and beyond.</p>
+      <p>Designed for students in Gidan Kwano, Gidan Mangoro, Dama, Chanchaga and beyond.</p>
     </div>
     <div class="value-card reveal reveal-delay-3">
       <div class="value-icon">
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M3 3h18v4H3zM3 10h18v4H3zM3 17h18v4H3z" stroke="#00d4ff" stroke-width="1.5" stroke-linecap="round"/>
-        </svg>
+        <svg viewBox="0 0 24 24" fill="none"><path d="M3 3h18v4H3zM3 10h18v4H3zM3 17h18v4H3z" stroke="#29b6f6" stroke-width="1.5" stroke-linecap="round"/></svg>
       </div>
       <h3>Real Queue Tracking</h3>
       <p>See exactly how many gallons remain before your area's next delivery dispatch.</p>
@@ -1369,44 +1514,31 @@ ul { list-style: none; }
       <h2 class="section-title" id="howTitle">Order in four simple steps</h2>
       <p class="section-sub">From clicking to sipping — the entire process is built to be frictionless for busy students.</p>
     </div>
-
     <div class="steps-grid">
       <div class="steps-connector" aria-hidden="true"></div>
-
       <div class="step-card reveal">
         <div class="step-num" aria-hidden="true">1</div>
-        <div class="step-icon" aria-hidden="true">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 14c-2.21 0-4-1.79-4-4 0-1.56.89-2.91 2.19-3.59L12 5l1.81 3.41C15.11 9.09 16 10.44 16 12c0 2.21-1.79 4-4 4z" fill="#00d4ff" opacity="0.6"/></svg>
-        </div>
+        <div class="step-icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 14c-2.21 0-4-1.79-4-4 0-1.56.89-2.91 2.19-3.59L12 5l1.81 3.41C15.11 9.09 16 10.44 16 12c0 2.21-1.79 4-4 4z" fill="#29b6f6" opacity="0.6"/></svg></div>
         <h3>Choose Quantity</h3>
-        <p>Select how many gallons you need using our simple quantity selector. Add as many as you need.</p>
+        <p>Select how many gallons you need using our simple quantity selector.</p>
       </div>
-
       <div class="step-card reveal reveal-delay-1">
         <div class="step-num" aria-hidden="true">2</div>
-        <div class="step-icon" aria-hidden="true">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="#00d4ff" stroke-width="1.5" opacity="0.6"/></svg>
-        </div>
+        <div class="step-icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="#29b6f6" stroke-width="1.5" opacity="0.6"/></svg></div>
         <h3>Enter Location</h3>
-        <p>Provide your area, lodge name, room number, and landmark so we can find you precisely.</p>
+        <p>Provide your area, lodge name, room number, and landmark so we can find you.</p>
       </div>
-
       <div class="step-card reveal reveal-delay-2">
         <div class="step-num" aria-hidden="true">3</div>
-        <div class="step-icon" aria-hidden="true">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="13" rx="2" stroke="#00d4ff" stroke-width="1.5" opacity="0.6"/><path d="M3 10h18" stroke="#00d4ff" stroke-width="1.5" opacity="0.6"/></svg>
-        </div>
+        <div class="step-icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="13" rx="2" stroke="#29b6f6" stroke-width="1.5" opacity="0.6"/><path d="M3 10h18" stroke="#29b6f6" stroke-width="1.5" opacity="0.6"/></svg></div>
         <h3>Make Payment</h3>
-        <p>Pay securely online via Paystack. Your order is confirmed instantly upon successful payment.</p>
+        <p>Pay securely online via Paystack. Your order is confirmed instantly.</p>
       </div>
-
       <div class="step-card reveal reveal-delay-3">
         <div class="step-num" aria-hidden="true">4</div>
-        <div class="step-icon" aria-hidden="true">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5 9-9" stroke="#00ffb2" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/></svg>
-        </div>
+        <div class="step-icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5 9-9" stroke="#00e5ff" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/></svg></div>
         <h3>Get Delivery</h3>
-        <p>Sit back and track the queue. Your water arrives at your door within the estimated timeframe.</p>
+        <p>Sit back and track the queue. Your water arrives within the estimated timeframe.</p>
       </div>
     </div>
   </div>
@@ -1423,8 +1555,7 @@ ul { list-style: none; }
       <h2 class="section-title" id="areasTitle">Delivery Areas</h2>
       <p class="section-sub">Currently serving four major off-campus areas around FUTMINNA — with more coming soon.</p>
     </div>
-
-    <div class="areas-grid">
+    <div class="areas-grid" id="areasGrid">
       <div class="area-card reveal">
         <div class="area-icon" aria-hidden="true">🏘️</div>
         <h3>Gidan Kwano</h3>
@@ -1434,13 +1565,13 @@ ul { list-style: none; }
       <div class="area-card reveal reveal-delay-1">
         <div class="area-icon" aria-hidden="true">🏙️</div>
         <h3>Gidan Mangoro</h3>
-        <p>Gidan Mangoro area including student estates. Regular delivery rounds throughout the day.</p>
+        <p>Gidan Mangoro student estates. Regular delivery rounds throughout the day.</p>
         <div class="area-status"><span class="area-status-dot" aria-hidden="true"></span> Actively Delivering</div>
       </div>
       <div class="area-card reveal reveal-delay-2">
         <div class="area-icon" aria-hidden="true">🌆</div>
         <h3>Dama</h3>
-        <p>Dama and surroundings served in dedicated afternoon dispatch windows. Easy to track.</p>
+        <p>Dama and surroundings served in dedicated dispatch windows. Easy to track.</p>
         <div class="area-status"><span class="area-status-dot" aria-hidden="true"></span> Actively Delivering</div>
       </div>
       <div class="area-card reveal reveal-delay-3">
@@ -1450,14 +1581,13 @@ ul { list-style: none; }
         <div class="area-status"><span class="area-status-dot" aria-hidden="true"></span> Actively Delivering</div>
       </div>
     </div>
-
-    <p class="areas-note reveal">📌 More delivery areas are being added soon. If your area isn't listed, <a href="#faq" style="color:var(--aqua);text-decoration:underline;">see our FAQ</a> or contact us directly.</p>
+    <p class="areas-note reveal">📌 More delivery areas are being added soon. If your area isn't listed, <a href="#contact" style="color:var(--aqua);text-decoration:underline;">contact us</a>.</p>
   </div>
 </section>
 
 
 <!-- ============================================================
-     ORDER SECTION (MAIN)
+     MAIN ORDER SECTION
      ============================================================ -->
 <section class="order-section" id="order" aria-labelledby="orderTitle">
   <div class="container">
@@ -1466,16 +1596,14 @@ ul { list-style: none; }
       <h2 class="section-title" id="orderTitle">Place Your Water Order</h2>
       <p class="section-sub">Fill in your details below. Takes less than two minutes.</p>
     </div>
-
     <div class="order-layout">
 
-      <!-- ORDER FORM CARD -->
+      <!-- ORDER FORM -->
       <div class="order-form-card reveal">
         <h3 class="order-form-title">Delivery Details</h3>
         <p class="order-form-sub">All fields are required. Accurate location info ensures smooth delivery.</p>
 
         <form id="orderForm" novalidate aria-label="Water order form">
-
           <div class="form-row">
             <div class="form-group">
               <label class="form-label" for="fullName">Full Name</label>
@@ -1494,8 +1622,8 @@ ul { list-style: none; }
             <select class="form-select" id="area" name="area" required aria-describedby="areaError">
               <option value="">-- Select your area --</option>
               <option value="gidan-kwano">Gidan Kwano</option>
-              <option value="bosso">Bosso</option>
-              <option value="tunga">Tunga</option>
+              <option value="gidan-mangoro">Gidan Mangoro</option>
+              <option value="dama">Dama</option>
               <option value="chanchaga">Chanchaga</option>
             </select>
             <span class="form-error-msg" id="areaError" role="alert">Please select your delivery area.</span>
@@ -1521,7 +1649,7 @@ ul { list-style: none; }
           </div>
 
           <div class="form-group">
-            <label class="form-label" for="qtyDisplay">Number of Gallons</label>
+            <label class="form-label">Number of Gallons</label>
             <div class="qty-stepper" role="group" aria-label="Gallon quantity selector">
               <button type="button" class="qty-btn" id="qtyMinus" aria-label="Decrease quantity">−</button>
               <div class="qty-val" id="qtyDisplay" aria-live="polite" aria-atomic="true">1</div>
@@ -1543,18 +1671,15 @@ ul { list-style: none; }
               Proceed to Payment
             </span>
             <span class="btn-pay-loading" aria-hidden="true">
-              <span class="spinner"></span> Processing...
+              <span class="spinner"></span> Processing…
             </span>
           </button>
           <p class="btn-pay-helper">🔒 Secured by Paystack · Your payment info is never stored on our servers</p>
-
         </form>
       </div>
 
-      <!-- ORDER SIDEBAR: SUMMARY + QUEUE -->
+      <!-- SIDEBAR -->
       <div class="order-sidebar" id="queue-info">
-
-        <!-- ORDER SUMMARY -->
         <div class="summary-card reveal reveal-delay-1">
           <div class="summary-card-title">
             <span class="summary-card-title-dot" aria-hidden="true"></span>
@@ -1566,50 +1691,184 @@ ul { list-style: none; }
           </div>
           <div class="summary-row">
             <span class="summary-row-label">Price per gallon</span>
-            <span class="summary-row-val">₦250</span>
+            <span class="summary-row-val" id="summaryPpg">—</span>
           </div>
           <div class="summary-row">
             <span class="summary-row-label">Delivery fee</span>
-            <span class="summary-row-val" id="summaryDelivery">₦0</span>
+            <span class="summary-row-val" id="summaryDelivery">—</span>
           </div>
           <div class="summary-total">
             <span class="summary-total-label">Total Amount</span>
-            <span class="summary-total-val" id="summaryTotal">₦250</span>
+            <span class="summary-total-val" id="summaryTotal">—</span>
           </div>
         </div>
 
-        <!-- QUEUE CARD -->
         <div class="queue-card reveal reveal-delay-2">
           <div class="queue-card-title">📦 Delivery Queue</div>
           <div class="queue-card-area" id="queueAreaLabel">Select an area to see queue status</div>
 
-          <div class="queue-metric">
-            <div class="queue-metric-label">Gallons before next dispatch</div>
-            <div class="queue-metric-val" id="queueRemaining">— <span class="unit">gallons</span></div>
-            <div class="queue-bar-wrap">
-              <div class="queue-bar-label">
-                <span>Queue Fill</span>
-                <span id="queuePct">—%</span>
-              </div>
-              <div class="queue-bar">
-                <div class="queue-bar-fill" id="queueBarFill" style="width:0%"></div>
+          <div id="queueLoadingEl" class="queue-loading" style="display:none;">
+            <div class="queue-loading-spinner"></div> Fetching live queue data…
+          </div>
+
+          <div id="queueContent">
+            <div class="queue-metric">
+              <div class="queue-metric-label">Gallons before next dispatch</div>
+              <div class="queue-metric-val" id="queueRemaining">— <span class="unit">gallons</span></div>
+              <div class="queue-bar-wrap">
+                <div class="queue-bar-label">
+                  <span>Queue Fill</span>
+                  <span id="queuePct">—%</span>
+                </div>
+                <div class="queue-bar"><div class="queue-bar-fill" id="queueBarFill" style="width:0%"></div></div>
               </div>
             </div>
-          </div>
-
-          <div class="eta-card">
-            <div class="eta-label">Estimated Arrival Time</div>
-            <div class="eta-val" id="etaDisplay">Select your area →</div>
-          </div>
-
-          <div id="queueStatusBadge" class="queue-status-badge active" style="display:none;">
-            <span class="status-dot green" id="queueStatusDot"></span>
-            <span id="queueStatusText">Dispatch Active</span>
+            <div class="eta-card">
+              <div class="eta-label">Estimated Arrival Time</div>
+              <div class="eta-val" id="etaDisplay">Select your area →</div>
+            </div>
+            <div id="queueStatusBadge" class="queue-status-badge active" style="display:none;">
+              <span class="status-dot green" id="queueStatusDot"></span>
+              <span id="queueStatusText">Dispatch Active</span>
+            </div>
           </div>
         </div>
+      </div>
 
-      </div><!-- /order-sidebar -->
-    </div><!-- /order-layout -->
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     PARTNERS SECTION
+     ============================================================ -->
+<section class="partners-section" id="partners" aria-labelledby="partnersTitle">
+  <div class="container">
+    <div class="section-header reveal" style="text-align:center;">
+      <div class="section-label">Our Partners</div>
+      <h2 class="section-title" id="partnersTitle">Trusted by Great Companies</h2>
+      <p class="section-sub" style="margin:0 auto;">We work alongside reliable partners to bring you the best water delivery experience around FUTMINNA.</p>
+    </div>
+
+    <div class="partners-grid">
+
+      <!-- PARTNER 1 — One UME Ltd -->
+      <div class="partner-card reveal">
+        <div class="partner-logo-wrap">
+          <!-- Replace src with real One UME Ltd logo path when available -->
+          <span style="font-size:2.2rem;">💧</span>
+        </div>
+        <div class="partner-name">One UME Ltd</div>
+        <div class="partner-desc">Strategic supply and distribution partner powering RuwaKonect's water sourcing and logistics operations.</div>
+        <div class="partner-badge">Official Partner</div>
+      </div>
+
+      <!-- PARTNER SLOT 2 -->
+      <div class="partner-card empty reveal reveal-delay-1">
+        <div class="partner-logo-wrap" style="opacity:0.4;">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="3" stroke="#4a7fa8" stroke-width="1.5" stroke-dasharray="4 3"/><path d="M12 8v8M8 12h8" stroke="#4a7fa8" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="partner-name" style="color:var(--text-3);">Partner Slot</div>
+        <div class="partner-empty-text">Interested in partnering with RuwaKonect? Get in touch below.</div>
+        <div class="partner-badge" style="opacity:0.5;">Coming Soon</div>
+      </div>
+
+      <!-- PARTNER SLOT 3 -->
+      <div class="partner-card empty reveal reveal-delay-2">
+        <div class="partner-logo-wrap" style="opacity:0.4;">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="3" stroke="#4a7fa8" stroke-width="1.5" stroke-dasharray="4 3"/><path d="M12 8v8M8 12h8" stroke="#4a7fa8" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="partner-name" style="color:var(--text-3);">Partner Slot</div>
+        <div class="partner-empty-text">We are actively growing our partner network. Reach out to join us.</div>
+        <div class="partner-badge" style="opacity:0.5;">Coming Soon</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     CONTACT / PARTNERSHIP SECTION
+     ============================================================ -->
+<section class="contact-section" id="contact" aria-labelledby="contactTitle">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">Get In Touch</div>
+      <h2 class="section-title" id="contactTitle">Partnership &amp; Contact</h2>
+      <p class="section-sub">Whether you're a business, supplier, or student with a question — we'd love to hear from you.</p>
+    </div>
+
+    <div class="contact-layout">
+      <div class="contact-info reveal">
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📧</div>
+          <div>
+            <div class="contact-detail-label">Email Us</div>
+            <div class="contact-detail-val"><a href="mailto:ruwakonects@gmail.com">ruwakonects@gmail.com</a></div>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📞</div>
+          <div>
+            <div class="contact-detail-label">Call / WhatsApp</div>
+            <div class="contact-detail-val"><a href="tel:+2348000000000">+234 800 000 0000</a></div>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📍</div>
+          <div>
+            <div class="contact-detail-label">Location</div>
+            <div class="contact-detail-val">FUTMINNA, Minna · Niger State, Nigeria</div>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">🤝</div>
+          <div>
+            <div class="contact-detail-label">Partnership Enquiries</div>
+            <div class="contact-detail-val">We are open to supply, logistics and technology partnerships. Send us a message.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form-card reveal reveal-delay-1">
+        <h3 class="contact-form-title">Send a Message</h3>
+        <p class="contact-form-sub">For partnership enquiries, business proposals, or any questions about RuwaKonect.</p>
+
+        <form id="contactForm" novalidate aria-label="Partnership contact form">
+          <div class="form-row" style="margin-bottom:0;">
+            <div class="form-group">
+              <label class="form-label" for="contactName">Your Name</label>
+              <input class="form-input" type="text" id="contactName" name="contactName" placeholder="e.g. John Doe" required />
+              <span class="form-error-msg" id="contactNameError" role="alert">Please enter your name.</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="contactEmail">Email Address</label>
+              <input class="form-input" type="email" id="contactEmail" name="contactEmail" placeholder="you@company.com" required />
+              <span class="form-error-msg" id="contactEmailError" role="alert">Enter a valid email address.</span>
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom:16px;">
+            <label class="form-label" for="contactSubject">Subject</label>
+            <input class="form-input" type="text" id="contactSubject" name="contactSubject" placeholder="e.g. Partnership Proposal" required />
+            <span class="form-error-msg" id="contactSubjectError" role="alert">Please enter a subject.</span>
+          </div>
+          <div class="form-group" style="margin-bottom:16px;">
+            <label class="form-label" for="contactMessage">Message</label>
+            <textarea class="contact-textarea" id="contactMessage" name="contactMessage" placeholder="Tell us about your proposal, company, or question…" required></textarea>
+            <span class="form-error-msg" id="contactMessageError" role="alert">Please enter a message.</span>
+          </div>
+          <button type="submit" class="btn-contact" id="contactBtn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 2L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 2L15 22l-4-9-9-4 20-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Send Message
+          </button>
+          <div class="contact-success-msg" id="contactSuccessMsg">
+            ✅ Message sent! We'll get back to you at <strong id="contactSuccessEmail"></strong> soon.
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1624,76 +1883,68 @@ ul { list-style: none; }
       <h2 class="section-title" id="faqTitle">Frequently Asked Questions</h2>
       <p class="section-sub" style="margin:0 auto;">Everything you need to know about RuwaKonect.</p>
     </div>
-
     <div class="faq-grid" role="list">
-
       <div class="faq-item reveal" role="listitem">
         <button class="faq-q" aria-expanded="false" aria-controls="faq1-body" id="faq1-btn">
           <span class="faq-q-text">How long does delivery take?</span>
           <span class="faq-icon" aria-hidden="true">+</span>
         </button>
         <div class="faq-a" id="faq1-body" role="region" aria-labelledby="faq1-btn">
-          <div class="faq-a-inner">Delivery typically takes 30–60 minutes depending on your area and the current queue length. You can see a live estimate on the order page before you pay. We always aim to exceed expectations.</div>
+          <div class="faq-a-inner">Delivery typically takes 30–60 minutes depending on your area and the current queue length. You can see a live estimate on the order page before you pay.</div>
         </div>
       </div>
-
       <div class="faq-item reveal reveal-delay-1" role="listitem">
         <button class="faq-q" aria-expanded="false" aria-controls="faq2-body" id="faq2-btn">
           <span class="faq-q-text">What delivery areas do you cover?</span>
           <span class="faq-icon" aria-hidden="true">+</span>
         </button>
         <div class="faq-a" id="faq2-body" role="region" aria-labelledby="faq2-btn">
-          <div class="faq-a-inner">We currently deliver to Gidan Kwano, Bosso, Tunga, and Chanchaga. More areas are actively being added. If you're just outside our zone, contact us — we'll do our best to accommodate you.</div>
+          <div class="faq-a-inner">We currently deliver to Gidan Kwano, Gidan Mangoro, Dama, and Chanchaga. More areas are actively being added.</div>
         </div>
       </div>
-
       <div class="faq-item reveal reveal-delay-1" role="listitem">
         <button class="faq-q" aria-expanded="false" aria-controls="faq3-body" id="faq3-btn">
           <span class="faq-q-text">Is payment required before delivery?</span>
           <span class="faq-icon" aria-hidden="true">+</span>
         </button>
         <div class="faq-a" id="faq3-body" role="region" aria-labelledby="faq3-btn">
-          <div class="faq-a-inner">Yes. Payment is required upfront through our secure Paystack gateway. This helps us confirm your order and dispatch quickly. No order is placed without a successful payment.</div>
+          <div class="faq-a-inner">Yes. Payment is required upfront through our secure Paystack gateway. No order is dispatched without successful payment.</div>
         </div>
       </div>
-
       <div class="faq-item reveal reveal-delay-2" role="listitem">
         <button class="faq-q" aria-expanded="false" aria-controls="faq4-body" id="faq4-btn">
           <span class="faq-q-text">Can I order multiple gallons at once?</span>
           <span class="faq-icon" aria-hidden="true">+</span>
         </button>
         <div class="faq-a" id="faq4-body" role="region" aria-labelledby="faq4-btn">
-          <div class="faq-a-inner">Absolutely. You can order up to 10 gallons per transaction using the quantity selector in the order form. The total and queue impact updates automatically. Bulk orders are welcome.</div>
+          <div class="faq-a-inner">Absolutely. You can order up to 10 gallons per transaction. The total and queue impact updates automatically. Bulk orders are welcome.</div>
         </div>
       </div>
-
       <div class="faq-item reveal reveal-delay-2" role="listitem">
         <button class="faq-q" aria-expanded="false" aria-controls="faq5-body" id="faq5-btn">
           <span class="faq-q-text">What if I entered the wrong location?</span>
           <span class="faq-icon" aria-hidden="true">+</span>
         </button>
         <div class="faq-a" id="faq5-body" role="region" aria-labelledby="faq5-btn">
-          <div class="faq-a-inner">Call our support line immediately after placing your order. If delivery hasn't started yet, we'll update your location. Always double-check your details before confirming your order — it only takes a second.</div>
+          <div class="faq-a-inner">Call our support line immediately. If delivery hasn't started we'll update your location. Always double-check your details before confirming.</div>
         </div>
       </div>
-
       <div class="faq-item reveal reveal-delay-3" role="listitem">
         <button class="faq-q" aria-expanded="false" aria-controls="faq6-body" id="faq6-btn">
           <span class="faq-q-text">What type of water do you deliver?</span>
           <span class="faq-icon" aria-hidden="true">+</span>
         </button>
         <div class="faq-a" id="faq6-body" role="region" aria-labelledby="faq6-btn">
-          <div class="faq-a-inner">We deliver clean, treated drinking water in standard 20-litre gallons. Our water is sourced from certified suppliers and meets safe drinking standards for everyday student use.</div>
+          <div class="faq-a-inner">We deliver clean, treated drinking water in standard 20-litre gallons sourced from certified suppliers meeting safe drinking standards.</div>
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
 
 <!-- ============================================================
-     FINAL CTA STRIP
+     FINAL CTA
      ============================================================ -->
 <section class="cta-strip" aria-labelledby="ctaTitle">
   <div class="container">
@@ -1720,17 +1971,14 @@ ul { list-style: none; }
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <div class="nav-logo" aria-label="RuwaKonect">
+        <div class="nav-logo" style="pointer-events:none;">
           <div class="nav-logo-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 14c-2.21 0-4-1.79-4-4 0-1.56.89-2.91 2.19-3.59L12 5l1.81 3.41C15.11 9.09 16 10.44 16 12c0 2.21-1.79 4-4 4z" fill="#00d4ff"/>
-            </svg>
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 14c-2.21 0-4-1.79-4-4 0-1.56.89-2.91 2.19-3.59L12 5l1.81 3.41C15.11 9.09 16 10.44 16 12c0 2.21-1.79 4-4 4z" fill="#29b6f6"/></svg>
           </div>
           <span class="nav-logo-text">Ruwa<span>Konect</span></span>
         </div>
         <p>Clean water, delivered fast. Serving FUTMINNA off-campus students every day. No queues at the store, no heavy lifting — just order and relax.</p>
       </div>
-
       <div class="footer-col">
         <h4>Quick Links</h4>
         <a href="#hero">Home</a>
@@ -1738,22 +1986,20 @@ ul { list-style: none; }
         <a href="#areas">Delivery Areas</a>
         <a href="#order">Order Now</a>
       </div>
-
       <div class="footer-col">
         <h4>Support</h4>
         <a href="#faq">FAQs</a>
         <a href="tel:+2348000000000">Call Support</a>
-        <a href="#order">Track My Order</a>
+        <a href="#contact">Partnership</a>
       </div>
-
       <div class="footer-col">
         <h4>Contact</h4>
+        <a href="mailto:ruwakonects@gmail.com">📧 ruwakonects@gmail.com</a>
         <a href="tel:+2348000000000">📞 +234 800 000 0000</a>
-        <a href="#">📍 FUTMINNA, Minna</a>
+        <a href="#contact">📍 FUTMINNA, Minna</a>
         <a href="#">💬 WhatsApp Us</a>
       </div>
     </div>
-
     <div class="footer-bottom">
       <p class="footer-copy">© 2025 RuwaKonect. All rights reserved.</p>
       <p class="footer-note">💧 Serving FUTMINNA off-campus students · Minna, Niger State</p>
@@ -1762,9 +2008,7 @@ ul { list-style: none; }
 </footer>
 
 
-<!-- ============================================================
-     SUCCESS MODAL
-     ============================================================ -->
+<!-- SUCCESS MODAL -->
 <div class="modal-overlay" id="successModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDesc">
   <div class="modal">
     <div class="modal-icon" aria-hidden="true">✅</div>
@@ -1776,443 +2020,597 @@ ul { list-style: none; }
   </div>
 </div>
 
+<!-- TOAST CONTAINER -->
+<div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="false"></div>
+
 
 <!-- ============================================================
-     JAVASCRIPT
+     JAVASCRIPT — Production-ready with Supabase integration
      ============================================================ -->
 <script>
-  /* ============================================================
-     MOCK DATA — Replace with Supabase reads in production
-     ============================================================ */
-  const PRICE_PER_GALLON = 250;     // ₦ per gallon
-  const DELIVERY_FEE = 0;         // Flat delivery fee
+'use strict';
 
-  // Area queue data — will come from Supabase realtime in production
-  const areaData = {
-    'gidan-kwano': {
-      name: 'Gidan Kwano',
-      dispatchCapacity: 40,    // gallons needed to trigger a dispatch
-      currentQueue: 22,        // gallons already queued
-      etaMin: 30,
-      etaMax: 50,
-      status: 'active',        // 'active' | 'busy' | 'offline'
-    },
-    'bosso': {
-      name: 'Bosso',
-      dispatchCapacity: 35,
-      currentQueue: 10,
-      etaMin: 40,
-      etaMax: 65,
-      status: 'active',
-    },
-    'tunga': {
-      name: 'Tunga',
-      dispatchCapacity: 30,
-      currentQueue: 26,
-      etaMin: 45,
-      etaMax: 70,
-      status: 'busy',
-    },
-    'chanchaga': {
-      name: 'Chanchaga',
-      dispatchCapacity: 25,
-      currentQueue: 5,
-      etaMin: 55,
-      etaMax: 80,
-      status: 'active',
-    },
-  };
+/* ============================================================
+   SUPABASE CONFIGURATION
+   Replace these with your real Supabase project credentials.
+   Get them from: https://supabase.com/dashboard → Project Settings → API
+   ============================================================ */
+const SUPABASE_URL    = 'https://ioeidrepxainhhabgtxn.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlvZWlkcmVweGFpbmhoYWJndHhuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM5NzYwMzksImV4cCI6MjA4OTU1MjAzOX0.7YfdtrV6vCQnsQ1c99292PPUAGyekvsjvGejkY714jg';
 
-  /* ============================================================
-     APPLICATION STATE
-     Structured for easy Supabase insertion later
-     ============================================================ */
-  const orderState = {
-    fullName: '',
-    phone: '',
-    area: '',
-    lodge: '',
-    room: '',
-    landmark: '',
-    quantity: 1,
-    totalAmount: 0,
-    orderId: null,
-    timestamp: null,
-    paymentRef: null,  // Paystack reference placeholder
-    status: 'pending', // 'pending' | 'paid' | 'dispatched' | 'delivered'
-  };
+/* ============================================================
+   PAYSTACK CONFIGURATION
+   Replace with your real Paystack public key.
+   Get it from: https://dashboard.paystack.com/#/settings/developer
+   ============================================================ */
+const PAYSTACK_PUBLIC_KEY = 'pk_live_YOUR_PAYSTACK_PUBLIC_KEY';
 
-  /* ============================================================
-     DOM REFERENCES
-     ============================================================ */
-  const navbar      = document.getElementById('navbar');
-  const hamburger   = document.getElementById('navHamburger');
-  const mobileNav   = document.getElementById('navMobile');
-  const orderForm   = document.getElementById('orderForm');
-  const qtyMinus    = document.getElementById('qtyMinus');
-  const qtyPlus     = document.getElementById('qtyPlus');
-  const qtyDisplay  = document.getElementById('qtyDisplay');
-  const qtyInput    = document.getElementById('quantity');
-  const areaSelect  = document.getElementById('area');
-  const summaryQty  = document.getElementById('summaryQty');
-  const summaryDel  = document.getElementById('summaryDelivery');
-  const summaryTot  = document.getElementById('summaryTotal');
-  const queueAreaLbl = document.getElementById('queueAreaLabel');
-  const queueRem    = document.getElementById('queueRemaining');
-  const queuePct    = document.getElementById('queuePct');
-  const queueBar    = document.getElementById('queueBarFill');
-  const etaDisplay  = document.getElementById('etaDisplay');
-  const queueBadge  = document.getElementById('queueStatusBadge');
-  const queueDot    = document.getElementById('queueStatusDot');
-  const queueTxt    = document.getElementById('queueStatusText');
-  const payBtn      = document.getElementById('payBtn');
-  const successModal = document.getElementById('successModal');
-  const modalClose   = document.getElementById('modalClose');
-  const modalOrderId = document.getElementById('modalOrderId');
+/* ============================================================
+   BUSINESS CONFIG
+   Adjust pricing here — these are read by all calculations
+   ============================================================ */
+const PRICE_PER_GALLON = 250;  // ₦ per gallon
+const DELIVERY_FEE     = 0;    // Flat delivery fee (set to 0 if included in price)
 
-  /* ============================================================
-     NAVBAR SCROLL EFFECT
-     ============================================================ */
-  window.addEventListener('scroll', () => {
-    navbar.classList.toggle('scrolled', window.scrollY > 30);
-  }, { passive: true });
-
-  /* ============================================================
-     MOBILE MENU
-     ============================================================ */
-  hamburger.addEventListener('click', () => {
-    const isOpen = mobileNav.classList.toggle('open');
-    hamburger.classList.toggle('open', isOpen);
-    hamburger.setAttribute('aria-expanded', isOpen);
-  });
-
-  // Close mobile menu on link click
-  mobileNav.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      mobileNav.classList.remove('open');
-      hamburger.classList.remove('open');
-      hamburger.setAttribute('aria-expanded', false);
+/* ============================================================
+   SUPABASE HTTP HELPER
+   Lightweight fetch wrapper — no SDK dependency needed
+   ============================================================ */
+const sb = {
+  async query(path, opts = {}) {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/${path}`, {
+      headers: {
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+        'Content-Type': 'application/json',
+        'Prefer': opts.prefer || 'return=representation',
+        ...(opts.headers || {}),
+      },
+      method: opts.method || 'GET',
+      body: opts.body ? JSON.stringify(opts.body) : undefined,
     });
-  });
-
-  /* ============================================================
-     SCROLL REVEAL
-     ============================================================ */
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('in-view');
-        revealObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12 });
-
-  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-
-  /* ============================================================
-     QUANTITY STEPPER
-     ============================================================ */
-  function updateQuantity(newVal) {
-    newVal = Math.max(1, Math.min(10, newVal)); // clamp 1–10
-    orderState.quantity = newVal;
-    qtyDisplay.textContent = newVal;
-    qtyInput.value = newVal;
-    updateSummary();
-    updateQueueDisplay(); // queue impact updates with quantity
-  }
-
-  qtyMinus.addEventListener('click', () => updateQuantity(orderState.quantity - 1));
-  qtyPlus.addEventListener('click',  () => updateQuantity(orderState.quantity + 1));
-
-  /* ============================================================
-     ORDER SUMMARY CALCULATION
-     ============================================================ */
-  function updateSummary() {
-    const qty   = orderState.quantity;
-    const total = qty * PRICE_PER_GALLON + DELIVERY_FEE;
-    orderState.totalAmount = total;
-
-    summaryQty.textContent  = qty === 1 ? '1 gallon' : `${qty} gallons`;
-    summaryDel.textContent  = `₦${DELIVERY_FEE.toLocaleString()}`;
-    summaryTot.textContent  = `₦${total.toLocaleString()}`;
-  }
-
-  /* ============================================================
-     QUEUE DISPLAY LOGIC
-     Each area has: dispatchCapacity, currentQueue, eta range, status
-     Remaining = dispatchCapacity - currentQueue - qty_being_ordered
-     ============================================================ */
-  function updateQueueDisplay() {
-    const areaKey = areaSelect.value;
-    if (!areaKey || !areaData[areaKey]) {
-      queueAreaLbl.textContent = 'Select an area to see queue status';
-      queueRem.innerHTML  = '— <span class="unit">gallons</span>';
-      queuePct.textContent = '—%';
-      queueBar.style.width = '0%';
-      etaDisplay.textContent = 'Select your area →';
-      queueBadge.style.display = 'none';
-      return;
+    if (!res.ok) {
+      const err = await res.text();
+      throw new Error(`Supabase error ${res.status}: ${err}`);
     }
+    return res.status === 204 ? null : res.json();
+  },
 
-    const area    = areaData[areaKey];
-    const filled  = area.currentQueue + orderState.quantity;
-    const remaining = Math.max(0, area.dispatchCapacity - filled);
-    const pct       = Math.min(100, Math.round((filled / area.dispatchCapacity) * 100));
+  /* Fetch area queue data from 'areas' table */
+  async getAreaQueue(areaKey) {
+    const data = await this.query(`areas?area_key=eq.${encodeURIComponent(areaKey)}&select=*&limit=1`);
+    return data && data[0] ? data[0] : null;
+  },
 
-    queueAreaLbl.textContent = `📍 ${area.name} · Live Queue`;
-    queueRem.innerHTML  = `${remaining} <span class="unit">gallons</span>`;
-    queuePct.textContent = `${pct}%`;
-    queueBar.style.width  = `${pct}%`;
+  /* Fetch all areas (for hero stats) */
+  async getAllAreas() {
+    return this.query('areas?select=*');
+  },
 
-    // ETA text
-    const addedWait = remaining === 0 ? 0 : Math.round(remaining * 0.8);
-    const etaLow  = area.etaMin + addedWait;
-    const etaHigh = area.etaMax + addedWait;
-    etaDisplay.textContent = `${etaLow}–${etaHigh} minutes`;
+  /* Insert a new order */
+  async insertOrder(order) {
+    return this.query('orders', { method: 'POST', body: order, prefer: 'return=representation' });
+  },
 
-    // Status badge
-    queueBadge.style.display = 'inline-flex';
-    if (area.status === 'busy') {
-      queueBadge.className = 'queue-status-badge busy';
-      queueDot.className   = 'status-dot warn';
-      queueTxt.textContent = 'High Demand — Slight Delay';
-    } else {
-      queueBadge.className = 'queue-status-badge active';
-      queueDot.className   = 'status-dot green';
-      queueTxt.textContent = 'Dispatch Active';
-    }
-  }
+  /* Insert a contact/partnership message */
+  async insertContact(msg) {
+    return this.query('contact_messages', { method: 'POST', body: msg, prefer: 'return=representation' });
+  },
+};
 
-  areaSelect.addEventListener('change', () => {
-    updateQueueDisplay();
-    updateSummary();
+/* ============================================================
+   APPLICATION STATE
+   ============================================================ */
+const orderState = {
+  fullName:   '',
+  phone:      '',
+  area:       '',
+  lodge:      '',
+  room:       '',
+  landmark:   '',
+  quantity:   1,
+  totalAmount:0,
+  orderId:    null,
+  timestamp:  null,
+  paymentRef: null,
+  status:     'pending',
+  areaData:   null,   // live data from Supabase
+};
+
+/* ============================================================
+   DOM REFERENCES
+   ============================================================ */
+const navbar       = document.getElementById('navbar');
+const hamburger    = document.getElementById('navHamburger');
+const mobileNav    = document.getElementById('navMobile');
+const orderForm    = document.getElementById('orderForm');
+const qtyMinus     = document.getElementById('qtyMinus');
+const qtyPlus      = document.getElementById('qtyPlus');
+const qtyDisplay   = document.getElementById('qtyDisplay');
+const qtyInput     = document.getElementById('quantity');
+const areaSelect   = document.getElementById('area');
+const summaryQty   = document.getElementById('summaryQty');
+const summaryPpg   = document.getElementById('summaryPpg');
+const summaryDel   = document.getElementById('summaryDelivery');
+const summaryTot   = document.getElementById('summaryTotal');
+const queueAreaLbl = document.getElementById('queueAreaLabel');
+const queueRem     = document.getElementById('queueRemaining');
+const queuePct     = document.getElementById('queuePct');
+const queueBar     = document.getElementById('queueBarFill');
+const etaDisplay   = document.getElementById('etaDisplay');
+const queueBadge   = document.getElementById('queueStatusBadge');
+const queueDot     = document.getElementById('queueStatusDot');
+const queueTxt     = document.getElementById('queueStatusText');
+const queueLoadingEl= document.getElementById('queueLoadingEl');
+const payBtn       = document.getElementById('payBtn');
+const successModal = document.getElementById('successModal');
+const modalClose   = document.getElementById('modalClose');
+const modalOrderId = document.getElementById('modalOrderId');
+const toastCont    = document.getElementById('toastContainer');
+const contactForm  = document.getElementById('contactForm');
+const contactBtn   = document.getElementById('contactBtn');
+
+/* ============================================================
+   TOAST
+   ============================================================ */
+function showToast(type, title, msg = '', duration = 4500) {
+  const icons = { success: '✅', error: '❌', info: 'ℹ️' };
+  const t = document.createElement('div');
+  t.className = `toast ${type}`;
+  t.setAttribute('role', 'alert');
+  t.innerHTML = `<span class="toast-icon">${icons[type]||'•'}</span><div class="toast-body"><div class="toast-title">${title}</div>${msg ? `<div class="toast-msg">${msg}</div>` : ''}</div>`;
+  toastCont.appendChild(t);
+  const remove = () => { t.classList.add('removing'); t.addEventListener('animationend', () => t.remove()); };
+  if (duration > 0) setTimeout(remove, duration);
+}
+
+/* ============================================================
+   NAVBAR SCROLL
+   ============================================================ */
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 30);
+}, { passive: true });
+
+/* ============================================================
+   MOBILE MENU
+   ============================================================ */
+hamburger.addEventListener('click', () => {
+  const isOpen = mobileNav.classList.toggle('open');
+  hamburger.classList.toggle('open', isOpen);
+  hamburger.setAttribute('aria-expanded', isOpen);
+});
+mobileNav.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    mobileNav.classList.remove('open');
+    hamburger.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', false);
   });
+});
 
-  /* ============================================================
-     FORM VALIDATION
-     ============================================================ */
-  function validateField(id, errorId, isValid, msg) {
-    const input = document.getElementById(id);
-    const error = document.getElementById(errorId);
-    if (!isValid) {
-      input.classList.add('error');
-      error.textContent = msg || error.textContent;
-      error.classList.add('visible');
-      return false;
-    } else {
-      input.classList.remove('error');
-      error.classList.remove('visible');
-      return true;
-    }
-  }
+/* ============================================================
+   SCROLL REVEAL
+   ============================================================ */
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in-view'); revealObserver.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-  function validateForm() {
-    let valid = true;
-    const nameVal     = document.getElementById('fullName').value.trim();
-    const phoneVal    = document.getElementById('phone').value.trim();
-    const areaVal     = document.getElementById('area').value;
-    const lodgeVal    = document.getElementById('lodge').value.trim();
-    const roomVal     = document.getElementById('room').value.trim();
-    const landmarkVal = document.getElementById('landmark').value.trim();
-    const confirmed   = document.getElementById('confirmCheck').checked;
-
-    valid = validateField('fullName', 'fullNameError', nameVal.length >= 3)  && valid;
-    valid = validateField('phone',    'phoneError',    /^(\+?234|0)[789]\d{9}$/.test(phoneVal.replace(/\s/g, ''))) && valid;
-    valid = validateField('area',     'areaError',     areaVal !== '') && valid;
-    valid = validateField('lodge',    'lodgeError',    lodgeVal.length >= 2) && valid;
-    valid = validateField('room',     'roomError',     roomVal.length >= 1)  && valid;
-    valid = validateField('landmark', 'landmarkError', landmarkVal.length >= 3) && valid;
-
-    if (!confirmed) {
-      document.getElementById('confirmCheck').style.borderColor = '#ff4d6d';
-      valid = false;
-    } else {
-      document.getElementById('confirmCheck').style.borderColor = '';
-    }
-
-    // Collect state
-    if (valid) {
-      orderState.fullName  = nameVal;
-      orderState.phone     = phoneVal;
-      orderState.area      = areaVal;
-      orderState.lodge     = lodgeVal;
-      orderState.room      = roomVal;
-      orderState.landmark  = landmarkVal;
-      orderState.timestamp = new Date().toISOString();
-    }
-
-    return valid;
-  }
-
-  /* ============================================================
-     MOCK ORDER ID GENERATOR
-     ============================================================ */
-  function generateOrderId() {
-    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-    let id = 'RK-';
-    for (let i = 0; i < 8; i++) id += chars[Math.floor(Math.random() * chars.length)];
-    return id;
-  }
-
-  /* ============================================================
-     MOCK PAYMENT HANDLER (Paystack integration point)
-     Replace initializePaystack() with real Paystack InlineJS call
-     ============================================================ */
-  async function initializePaystack(orderId) {
-    /*
-      INTEGRATION POINT — Paystack:
-      const handler = PaystackPop.setup({
-        key: 'pk_test_YOUR_PUBLIC_KEY',
-        email: orderState.phone + '@ruwakonect.ng',
-        amount: orderState.totalAmount * 100,
-        ref: orderId,
-        metadata: { order: orderState },
-        callback: (response) => { confirmOrderInSupabase(response.reference); },
-        onClose: () => { payBtn.classList.remove('loading'); },
-      });
-      handler.openIframe();
-    */
-
-    // Mock: simulate payment network delay
-    return new Promise(resolve => setTimeout(() => resolve({ reference: orderId, status: 'success' }), 2200));
-  }
-
-  /* ============================================================
-     MOCK SUPABASE ORDER SAVE
-     Replace with real Supabase insert in production
-     ============================================================ */
-  async function saveOrderToSupabase(orderId) {
-    /*
-      INTEGRATION POINT — Supabase:
-      const { data, error } = await supabase
-        .from('orders')
-        .insert([{
-          order_id: orderId,
-          full_name: orderState.fullName,
-          phone: orderState.phone,
-          area: orderState.area,
-          lodge: orderState.lodge,
-          room: orderState.room,
-          landmark: orderState.landmark,
-          quantity: orderState.quantity,
-          total_amount: orderState.totalAmount,
-          status: 'paid',
-          payment_ref: orderState.paymentRef,
-          created_at: orderState.timestamp,
-        }]);
-      if (error) throw error;
-      return data;
-    */
-
-    // Mock: simulate DB write delay
-    return new Promise(resolve => setTimeout(resolve, 400));
-  }
-
-  /* ============================================================
-     FORM SUBMIT HANDLER
-     ============================================================ */
-  orderForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    if (!validateForm()) return;
-
-    // Show loading state
-    payBtn.classList.add('loading');
-    payBtn.disabled = true;
-
-    try {
-      const orderId = generateOrderId();
-      orderState.orderId = orderId;
-
-      // Process payment (mock)
-      const paymentResult = await initializePaystack(orderId);
-      orderState.paymentRef = paymentResult.reference;
-      orderState.status = 'paid';
-
-      // Save to Supabase (mock)
-      await saveOrderToSupabase(orderId);
-
-      // Show success
-      showSuccessModal(orderId);
-    } catch (err) {
-      console.error('Order submission error:', err);
-      alert('Something went wrong. Please try again or contact support.');
-    } finally {
-      payBtn.classList.remove('loading');
-      payBtn.disabled = false;
-    }
-  });
-
-  /* ============================================================
-     SUCCESS MODAL
-     ============================================================ */
-  function showSuccessModal(orderId) {
-    modalOrderId.textContent = `Order ID: ${orderId}`;
-    successModal.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeSuccessModal() {
-    successModal.classList.remove('open');
-    document.body.style.overflow = '';
-    orderForm.reset();
-    updateQuantity(1);
-    updateQueueDisplay();
-    updateSummary();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  modalClose.addEventListener('click', closeSuccessModal);
-  successModal.addEventListener('click', (e) => {
-    if (e.target === successModal) closeSuccessModal();
-  });
-
-  // Keyboard accessibility for modal
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && successModal.classList.contains('open')) closeSuccessModal();
-  });
-
-  /* ============================================================
-     FAQ ACCORDION
-     ============================================================ */
-  document.querySelectorAll('.faq-q').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const item    = btn.closest('.faq-item');
-      const isOpen  = item.classList.contains('open');
-
-      // Close all
-      document.querySelectorAll('.faq-item').forEach(i => {
-        i.classList.remove('open');
-        i.querySelector('.faq-q').setAttribute('aria-expanded', false);
-      });
-
-      // Toggle current
-      if (!isOpen) {
-        item.classList.add('open');
-        btn.setAttribute('aria-expanded', true);
-      }
-    });
-  });
-
-  /* ============================================================
-     SMOOTH SCROLL FOR ALL ANCHOR LINKS
-     ============================================================ */
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', (e) => {
-      const id = anchor.getAttribute('href').slice(1);
-      const target = document.getElementById(id);
-      if (!target) return;
-      e.preventDefault();
-      const offset = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 72;
-      window.scrollTo({ top: target.offsetTop - offset, behavior: 'smooth' });
-    });
-  });
-
-  /* ============================================================
-     INIT
-     ============================================================ */
+/* ============================================================
+   QUANTITY STEPPER
+   ============================================================ */
+function updateQuantity(newVal) {
+  newVal = Math.max(1, Math.min(10, newVal));
+  orderState.quantity = newVal;
+  qtyDisplay.textContent = newVal;
+  qtyInput.value = newVal;
   updateSummary();
-  updateQueueDisplay();
+  if (orderState.areaData) updateQueueUI(orderState.areaData);
+}
+qtyMinus.addEventListener('click', () => updateQuantity(orderState.quantity - 1));
+qtyPlus.addEventListener('click',  () => updateQuantity(orderState.quantity + 1));
+
+/* ============================================================
+   ORDER SUMMARY
+   ============================================================ */
+function updateSummary() {
+  const qty   = orderState.quantity;
+  const total = qty * PRICE_PER_GALLON + DELIVERY_FEE;
+  orderState.totalAmount = total;
+  summaryQty.textContent  = qty === 1 ? '1 gallon' : `${qty} gallons`;
+  summaryPpg.textContent  = `₦${PRICE_PER_GALLON.toLocaleString()}`;
+  summaryDel.textContent  = DELIVERY_FEE === 0 ? 'Free' : `₦${DELIVERY_FEE.toLocaleString()}`;
+  summaryTot.textContent  = `₦${total.toLocaleString()}`;
+}
+
+/* ============================================================
+   QUEUE DISPLAY — driven by live Supabase area data
+   Expected Supabase 'areas' table columns:
+     area_key TEXT, name TEXT, dispatch_capacity INT,
+     current_queue INT, eta_min INT, eta_max INT,
+     status TEXT ('active'|'busy'|'offline'),
+     price_per_gallon INT (optional override)
+   ============================================================ */
+function updateQueueUI(area) {
+  const qty       = orderState.quantity;
+  const filled    = (area.current_queue || 0) + qty;
+  const capacity  = area.dispatch_capacity || 40;
+  const remaining = Math.max(0, capacity - filled);
+  const pct       = Math.min(100, Math.round((filled / capacity) * 100));
+
+  queueAreaLbl.textContent = `📍 ${area.name} · Live Queue`;
+  queueRem.innerHTML       = `${remaining} <span class="unit">gallons</span>`;
+  queuePct.textContent     = `${pct}%`;
+  queueBar.style.width     = `${pct}%`;
+
+  const addedWait  = remaining === 0 ? 0 : Math.round(remaining * 0.8);
+  const etaLow     = (area.eta_min || 30) + addedWait;
+  const etaHigh    = (area.eta_max || 60) + addedWait;
+  etaDisplay.textContent   = `${etaLow}–${etaHigh} minutes`;
+
+  queueBadge.style.display = 'inline-flex';
+  if (area.status === 'busy') {
+    queueBadge.className = 'queue-status-badge busy';
+    queueDot.className   = 'status-dot warn';
+    queueTxt.textContent = 'High Demand — Slight Delay';
+  } else if (area.status === 'offline') {
+    queueBadge.className = 'queue-status-badge offline';
+    queueDot.className   = 'status-dot red';
+    queueTxt.textContent = 'Currently Unavailable';
+  } else {
+    queueBadge.className = 'queue-status-badge active';
+    queueDot.className   = 'status-dot green';
+    queueTxt.textContent = 'Dispatch Active';
+  }
+}
+
+function clearQueueUI() {
+  queueAreaLbl.textContent = 'Select an area to see queue status';
+  queueRem.innerHTML       = '— <span class="unit">gallons</span>';
+  queuePct.textContent     = '—%';
+  queueBar.style.width     = '0%';
+  etaDisplay.textContent   = 'Select your area →';
+  queueBadge.style.display = 'none';
+  orderState.areaData      = null;
+}
+
+areaSelect.addEventListener('change', async () => {
+  const areaKey = areaSelect.value;
+  if (!areaKey) { clearQueueUI(); updateSummary(); return; }
+
+  queueLoadingEl.style.display = 'flex';
+  queueBar.style.width = '0%';
+  try {
+    const area = await sb.getAreaQueue(areaKey);
+    if (area) {
+      orderState.areaData = area;
+      updateQueueUI(area);
+    } else {
+      showToast('info', 'Area data unavailable', 'Queue data for this area is not available yet.');
+      clearQueueUI();
+    }
+  } catch(e) {
+    console.error('Queue fetch error:', e);
+    showToast('error', 'Could not load queue', 'Please check your connection and try again.');
+    clearQueueUI();
+  } finally {
+    queueLoadingEl.style.display = 'none';
+    updateSummary();
+  }
+});
+
+/* ============================================================
+   HERO STATS — fetch from Supabase on page load
+   ============================================================ */
+async function loadHeroStats() {
+  try {
+    const areas = await sb.getAllAreas();
+    if (!areas || areas.length === 0) return;
+    // Show first area's data as hero default
+    const primary = areas.find(a => a.area_key === 'gidan-kwano') || areas[0];
+    const capacity = primary.dispatch_capacity || 40;
+    const filled   = primary.current_queue || 0;
+    const rem      = Math.max(0, capacity - filled);
+    const pct      = Math.min(100, Math.round((filled / capacity) * 100));
+
+    document.getElementById('heroGallons').textContent     = rem;
+    document.getElementById('heroAreaName').textContent    = `remaining before ${primary.name} dispatch`;
+    document.getElementById('heroQueuePos').textContent    = `#${filled + 1} in line`;
+    document.getElementById('heroEta').textContent         = `${primary.eta_min}–${primary.eta_max} mins`;
+    document.getElementById('heroPpg').textContent         = `₦${PRICE_PER_GALLON.toLocaleString()}`;
+    document.getElementById('heroStatus').textContent      = primary.status === 'active' ? 'Active' : primary.status;
+    document.getElementById('heroProgressFill').style.width = `${pct}%`;
+
+    // Count total active orders across all areas
+    const totalQueued = areas.reduce((s, a) => s + (a.current_queue || 0), 0);
+    document.getElementById('heroActiveOrders').textContent = totalQueued;
+
+    // "Delivered today" — fetch from orders table
+    try {
+      const today = new Date().toISOString().split('T')[0];
+      const delivered = await sb.query(`orders?order_status=eq.delivered&created_at=gte.${today}&select=quantity`);
+      const gallonsDelivered = delivered ? delivered.reduce((s, o) => s + (o.quantity || 0), 0) : 0;
+      document.getElementById('heroDeliveredToday').textContent = `${gallonsDelivered} Gallons`;
+    } catch(_) {
+      document.getElementById('heroDeliveredToday').textContent = '— Gallons';
+    }
+  } catch(e) {
+    console.warn('Hero stats load failed:', e);
+    // Silently degrade — hero card just won't show live data
+    document.getElementById('heroAreaName').textContent = 'Live queue data coming soon';
+  }
+}
+
+/* ============================================================
+   FORM VALIDATION
+   ============================================================ */
+function validateField(id, errorId, isValid) {
+  const input = document.getElementById(id);
+  const error = document.getElementById(errorId);
+  input.classList.toggle('error', !isValid);
+  error.classList.toggle('visible', !isValid);
+  return isValid;
+}
+
+function validateOrderForm() {
+  let ok = true;
+  const nameVal  = document.getElementById('fullName').value.trim();
+  const phoneVal = document.getElementById('phone').value.trim().replace(/\s/g,'');
+  const areaVal  = areaSelect.value;
+  const lodgeVal = document.getElementById('lodge').value.trim();
+  const roomVal  = document.getElementById('room').value.trim();
+  const lmkVal   = document.getElementById('landmark').value.trim();
+  const confirmed= document.getElementById('confirmCheck').checked;
+
+  ok = validateField('fullName', 'fullNameError', nameVal.length >= 3) && ok;
+  ok = validateField('phone',    'phoneError',    /^(\+?234|0)[789]\d{9}$/.test(phoneVal)) && ok;
+  ok = validateField('area',     'areaError',     areaVal !== '') && ok;
+  ok = validateField('lodge',    'lodgeError',    lodgeVal.length >= 2) && ok;
+  ok = validateField('room',     'roomError',     roomVal.length >= 1) && ok;
+  ok = validateField('landmark', 'landmarkError', lmkVal.length >= 3) && ok;
+
+  if (!confirmed) {
+    document.getElementById('confirmCheck').style.borderColor = '#ff4d6d';
+    ok = false;
+  } else {
+    document.getElementById('confirmCheck').style.borderColor = '';
+  }
+
+  if (ok) {
+    orderState.fullName  = nameVal;
+    orderState.phone     = phoneVal;
+    orderState.area      = areaVal;
+    orderState.lodge     = lodgeVal;
+    orderState.room      = roomVal;
+    orderState.landmark  = lmkVal;
+    orderState.timestamp = new Date().toISOString();
+  }
+  return ok;
+}
+
+/* ============================================================
+   ORDER ID GENERATOR
+   ============================================================ */
+function generateOrderId() {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let id = 'RK-';
+  for (let i = 0; i < 8; i++) id += chars[Math.floor(Math.random() * chars.length)];
+  return id;
+}
+
+/* ============================================================
+   PAYSTACK PAYMENT
+   Production: loads Paystack inline JS and opens checkout.
+   Make sure to add this to your HTML head when going live:
+   <script src="https://js.paystack.co/v1/inline.js"><\/script>
+   ============================================================ */
+function initializePaystack(orderId) {
+  return new Promise((resolve, reject) => {
+    // Check if Paystack is loaded
+    if (typeof PaystackPop === 'undefined') {
+      // Load Paystack dynamically
+      const script = document.createElement('script');
+      script.src = 'https://js.paystack.co/v1/inline.js';
+      script.onload = () => openPaystack(orderId, resolve, reject);
+      script.onerror = () => reject(new Error('Failed to load Paystack'));
+      document.head.appendChild(script);
+    } else {
+      openPaystack(orderId, resolve, reject);
+    }
+  });
+}
+
+function openPaystack(orderId, resolve, reject) {
+  const handler = PaystackPop.setup({
+    key:    PAYSTACK_PUBLIC_KEY,
+    email:  `${orderState.phone}@ruwakonect.ng`,
+    amount: orderState.totalAmount * 100,  // Paystack uses kobo
+    ref:    orderId,
+    currency: 'NGN',
+    metadata: {
+      custom_fields: [
+        { display_name: 'Customer Name',  variable_name: 'full_name',  value: orderState.fullName },
+        { display_name: 'Phone Number',   variable_name: 'phone',      value: orderState.phone },
+        { display_name: 'Area',           variable_name: 'area',       value: orderState.area },
+        { display_name: 'Lodge',          variable_name: 'lodge',      value: orderState.lodge },
+        { display_name: 'Room',           variable_name: 'room',       value: orderState.room },
+        { display_name: 'Landmark',       variable_name: 'landmark',   value: orderState.landmark },
+        { display_name: 'Gallons',        variable_name: 'quantity',   value: String(orderState.quantity) },
+      ],
+    },
+    callback: (response) => resolve({ reference: response.reference, status: 'success' }),
+    onClose:  () => reject(new Error('Payment window closed by user')),
+  });
+  handler.openIframe();
+}
+
+/* ============================================================
+   SAVE ORDER TO SUPABASE
+   Table: orders
+   Required columns: reference, full_name, phone, area, lodge,
+     room, landmark, quantity, total_amount, payment_ref,
+     payment_status, order_status, created_at
+   ============================================================ */
+async function saveOrder(orderId, payRef) {
+  return sb.insertOrder({
+    reference:      orderId,
+    full_name:      orderState.fullName,
+    phone:          orderState.phone,
+    area:           orderState.area,
+    lodge:          orderState.lodge,
+    room:           orderState.room,
+    landmark:       orderState.landmark,
+    quantity:       orderState.quantity,
+    total_amount:   orderState.totalAmount,
+    payment_ref:    payRef,
+    payment_status: 'paid',
+    order_status:   'new',
+    created_at:     orderState.timestamp,
+  });
+}
+
+
+/* ============================================================
+   FORM SUBMIT
+   ============================================================ */
+orderForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  if (!validateOrderForm()) return;
+
+  payBtn.classList.add('loading');
+  payBtn.disabled = true;
+
+  const orderId = generateOrderId();
+  orderState.orderId = orderId;
+
+  try {
+    // ⚠️ TEST MODE — Paystack bypassed. Remove this block and
+    // uncomment the Paystack section below when going live.
+    const mockRef = 'TEST-' + orderId;
+    orderState.paymentRef = mockRef;
+    orderState.status = 'paid';
+    await new Promise(r => setTimeout(r, 800)); // simulate network delay
+    await saveOrder(orderId, mockRef);
+    showSuccessModal(orderId);
+    showToast('success', 'Test order placed!', 'Order saved to Supabase. Check your admin dashboard.');
+
+    // 🔴 LIVE MODE — delete the TEST MODE block above and uncomment this:
+    // const payResult = await initializePaystack(orderId);
+    // orderState.paymentRef = payResult.reference;
+    // orderState.status = 'paid';
+    // await saveOrder(orderId, payResult.reference);
+    // showSuccessModal(orderId);
+    // showToast('success', 'Order placed!', 'Your water order is confirmed and in the queue.');
+
+  } catch (err) {
+    console.error('Order error:', err);
+    showToast('error', 'Something went wrong', 'Please try again or contact support at ruwakonects@gmail.com');
+  } finally {
+    payBtn.classList.remove('loading');
+    payBtn.disabled = false;
+  }
+});
+
+
+/* ============================================================
+   SUCCESS MODAL
+   ============================================================ */
+function showSuccessModal(orderId) {
+  modalOrderId.textContent = `Order ID: ${orderId}`;
+  successModal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeSuccessModal() {
+  successModal.classList.remove('open');
+  document.body.style.overflow = '';
+  orderForm.reset();
+  document.getElementById('confirmCheck').checked = false;
+  updateQuantity(1);
+  clearQueueUI();
+  updateSummary();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+modalClose.addEventListener('click', closeSuccessModal);
+successModal.addEventListener('click', e => { if (e.target === successModal) closeSuccessModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && successModal.classList.contains('open')) closeSuccessModal(); });
+
+/* ============================================================
+   CONTACT FORM
+   Saves to Supabase 'contact_messages' table.
+   Required columns: name, email, subject, message, created_at
+   Also uses mailto as fallback if Supabase is not yet configured.
+   ============================================================ */
+contactForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  let ok = true;
+  const nameVal    = document.getElementById('contactName').value.trim();
+  const emailVal   = document.getElementById('contactEmail').value.trim();
+  const subjectVal = document.getElementById('contactSubject').value.trim();
+  const msgVal     = document.getElementById('contactMessage').value.trim();
+
+  ok = validateField('contactName',    'contactNameError',    nameVal.length >= 2)    && ok;
+  ok = validateField('contactEmail',   'contactEmailError',   /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) && ok;
+  ok = validateField('contactSubject', 'contactSubjectError', subjectVal.length >= 2) && ok;
+  ok = validateField('contactMessage', 'contactMessageError', msgVal.length >= 10)    && ok;
+  if (!ok) return;
+
+  contactBtn.disabled = true;
+  contactBtn.innerHTML = `<span class="spinner" style="border-color:rgba(255,255,255,0.3);border-top-color:#fff;"></span> Sending…`;
+
+  try {
+    await sb.insertContact({
+      name:       nameVal,
+      email:      emailVal,
+      subject:    subjectVal,
+      message:    msgVal,
+      created_at: new Date().toISOString(),
+    });
+    document.getElementById('contactSuccessEmail').textContent = emailVal;
+    document.getElementById('contactSuccessMsg').classList.add('visible');
+    contactForm.reset();
+    showToast('success', 'Message sent!', `We'll get back to you at ${emailVal} soon.`);
+  } catch(err) {
+    console.error('Contact form error:', err);
+    // Fallback: open mailto
+    const mailtoLink = `mailto:ruwakonects@gmail.com?subject=${encodeURIComponent(subjectVal)}&body=${encodeURIComponent(`From: ${nameVal} <${emailVal}>\n\n${msgVal}`)}`;
+    window.location.href = mailtoLink;
+    showToast('info', 'Opening email client…', 'Your message will open in your default email app.');
+  } finally {
+    contactBtn.disabled = false;
+    contactBtn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 2L15 22l-4-9-9-4 20-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Send Message`;
+  }
+});
+
+/* ============================================================
+   FAQ ACCORDION
+   ============================================================ */
+document.querySelectorAll('.faq-q').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item   = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => { i.classList.remove('open'); i.querySelector('.faq-q').setAttribute('aria-expanded', false); });
+    if (!isOpen) { item.classList.add('open'); btn.setAttribute('aria-expanded', true); }
+  });
+});
+
+/* ============================================================
+   SMOOTH SCROLL
+   ============================================================ */
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', (e) => {
+    const id     = anchor.getAttribute('href').slice(1);
+    const target = document.getElementById(id);
+    if (!target) return;
+    e.preventDefault();
+    const offset = 72;
+    window.scrollTo({ top: target.offsetTop - offset, behavior: 'smooth' });
+  });
+});
+
+/* ============================================================
+   INIT
+   ============================================================ */
+updateSummary();
+loadHeroStats();
 </script>
 
 </body>

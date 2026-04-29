@@ -2043,7 +2043,7 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
    Replace with your real Paystack public key.
    Get it from: https://dashboard.paystack.com/#/settings/developer
    ============================================================ */
-const PAYSTACK_PUBLIC_KEY = 'pk_live_YOUR_PAYSTACK_PUBLIC_KEY';
+const PAYSTACK_PUBLIC_KEY = 'pk_live_6bcf09a90e02c9d31087bb1359b2a8cf1263ff9d';
 
 /* ============================================================
    BUSINESS CONFIG
@@ -2483,23 +2483,23 @@ orderForm.addEventListener('submit', async (e) => {
   orderState.orderId = orderId;
 
   try {
-    // ⚠️ TEST MODE — Paystack bypassed. Remove this block and
-    // uncomment the Paystack section below when going live.
-    const mockRef = 'TEST-' + orderId;
-    orderState.paymentRef = mockRef;
-    orderState.status = 'paid';
-    await new Promise(r => setTimeout(r, 800)); // simulate network delay
-    await saveOrder(orderId, mockRef);
-    showSuccessModal(orderId);
-    showToast('success', 'Test order placed!', 'Order saved to Supabase. Check your admin dashboard.');
-
-    // 🔴 LIVE MODE — delete the TEST MODE block above and uncomment this:
-    // const payResult = await initializePaystack(orderId);
-    // orderState.paymentRef = payResult.reference;
+    // // ⚠️ TEST MODE — Paystack bypassed. Remove this block and
+    // // uncomment the Paystack section below when going live.
+    // const mockRef = 'TEST-' + orderId;
+    // orderState.paymentRef = mockRef;
     // orderState.status = 'paid';
-    // await saveOrder(orderId, payResult.reference);
+    // await new Promise(r => setTimeout(r, 800)); // simulate network delay
+    // await saveOrder(orderId, mockRef);
     // showSuccessModal(orderId);
-    // showToast('success', 'Order placed!', 'Your water order is confirmed and in the queue.');
+    // showToast('success', 'Test order placed!', 'Order saved to Supabase. Check your admin dashboard.');
+
+    //🔴 LIVE MODE — delete the TEST MODE block above and uncomment this:
+    const payResult = await initializePaystack(orderId);
+    orderState.paymentRef = payResult.reference;
+    orderState.status = 'paid';
+    await saveOrder(orderId, payResult.reference);
+    showSuccessModal(orderId);
+    showToast('success', 'Order placed!', 'Your water order is confirmed and in the queue.');
 
   } catch (err) {
     console.error('Order error:', err);
